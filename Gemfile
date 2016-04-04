@@ -25,6 +25,8 @@ group :development, :test do
   gem 'capybara-rails'
   gem 'launchy'
   gem 'factory_girl_rails'
+  gem 'valid_attribute'
+  gem 'shoulda-matchers', require: false
 end
 
 group :development do
