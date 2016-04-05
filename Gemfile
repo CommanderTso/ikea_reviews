@@ -17,6 +17,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'foundation-rails'
 gem 'dotenv-rails'
+gem 'nokogiri'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

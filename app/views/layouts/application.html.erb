@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IkeaReviews</title>
+  <title>Ikea Reviews</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% flash.each do |key, value| %>
+    <%= value %>
+  <% end %>
 
-<%= yield %>
+  <%= yield %>
 
 </body>
 </html>
