@@ -27,6 +27,35 @@ feature "User creates a new Ikea item" do
 		expect(page).to have_css("img[src*='ektorp-footstool-blue__0386202_PE559152_S4.JPG']")
 	end
 
+	scenario "User doesn't enter any info for item" do
+		visit new_item_path
+		click_button "Submit"
+
+		expect(page).to have_content "Please enter a valid Ikea product URL or Article Number!"
+		expect(page).to have_content "Enter your item here:"
+	end
+
+	scenario "User enters an item already created, gets sent to existing page" do
+		item = FactoryGirl.create(:item)
+
+		visit new_item_path
+		fill_in "URL", with: item.item_url
+		click_button "Submit"
+
+		expect(current_path).to eq("/items/#{item.id}")
+
+	end
+
+	scenario "User enters an invalid URL to create a new item" do
+		visit new_item_path
+		fill_in "URL", with: "http://awdjhawkjdhawkjdhawkjdha"
+		click_button "Submit"
+
+		expect(page).to have_content("Please enter a valid Ikea product URL or Article Number!")
+		expect(page).to have_content("Enter your item here:")
+	end
+
+
 	xscenario "User enters an Article Number to create a new item" do
 
 	end
@@ -35,15 +64,8 @@ feature "User creates a new Ikea item" do
 
 	end
 
-	scenario "User enters an invalid URL to create a new item" do
-
-	end
-
 	xscenario "User enters an invalid Article Number to create a new item" do
 
 	end
 
-	xscenario "User doesn't enter any info for item" do
-
-	end
 end
