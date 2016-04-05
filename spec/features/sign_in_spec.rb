@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 feature "sign up", %Q{
   As an unauthenticed user
   I want to sign up

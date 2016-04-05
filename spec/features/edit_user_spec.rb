@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 feature "edit", %Q{
   As an authenticed user
   I want to edit information
@@ -22,8 +21,14 @@ end
 
   scenario 'user successfully changes password' do
     user
+
+    visit new_user_session_path
+    fill_in 'Email', with: "asdf@asdf.com"
+    fill_in 'Password', with: "asdf1234"
+    click_button "Log in"
+
+
     visit edit_user_registration_path
-    fill_in 'Email', with: ""
     fill_in 'Password', with: "password"
     fill_in 'Password confirmation', with: "password"
     fill_in 'Current password', with: "asdf1234"
@@ -35,8 +40,14 @@ end
 
   scenario 'user enters incorrect current password' do
     user
+
+    visit new_user_session_path
+    fill_in 'Email', with: "asdf@asdf.com"
+    fill_in 'Password', with: "asdf1234"
+    click_button "Log in"
+
+
     visit edit_user_registration_path
-    fill_in 'Email', with: ""
     fill_in 'Password', with: "password"
     fill_in 'Password confirmation', with: "password"
     fill_in 'Current password', with: "fdsafdsa"
@@ -46,15 +57,21 @@ end
     expect(page).to have_content("Current password is invalid")
   end
 
-  scenario 'user does not provide any information' do
-    visit new_user_registration_path
-    fill_in 'Email', with: ""
-    fill_in 'Password', with: ""
-    fill_in 'Password confirmation', with: ""
-    click_button 'Sign up'
+  scenario 'user enters invalid email' do
+    user
 
-    expect(page).to have_content("2 errors prohibited this user from being saved:")
-    expect(page).to have_content("Email can't be blank")
-    expect(page).to have_content("Password can't be blank")
+    visit new_user_session_path
+    fill_in 'Email', with: "asdf@asdf.com"
+    fill_in 'Password', with: "asdf1234"
+    click_button "Log in"
+
+    visit edit_user_registration_path
+    fill_in 'Email', with: "asdf@fdsaasdf"
+    fill_in 'Password', with: "password"
+    fill_in 'Password confirmation', with: "password"
+    fill_in 'Current password', with: "asdf1234"
+    click_button 'Update'
+
+    expect(page).to have_content("Email is invalid")
   end
 end
