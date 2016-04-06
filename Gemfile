@@ -8,6 +8,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
+gem 'devise'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -26,6 +27,8 @@ group :development, :test do
   gem 'capybara-rails'
   gem 'launchy'
   gem 'factory_girl_rails'
+  gem 'valid_attribute'
+  gem 'shoulda-matchers', require: false
 end
 
 group :development do
@@ -39,3 +42,9 @@ end
 group :test do
   gem 'coveralls', require: false
 end
+
+group :production do
+  gem 'rails_12factor'
+end
+
+ruby "2.2.3"

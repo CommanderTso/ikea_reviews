@@ -73,4 +73,7 @@ class ItemsController < ApplicationController
   def item_already_exists?
     @item.errors[:item_url][0] == "has already been taken"
   end
+
+  def index
+  end
 end
