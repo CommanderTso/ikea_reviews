@@ -11,21 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405152118) do
-
+ActiveRecord::Schema.define(version: 20160405194451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "items", force: :cascade do |t|
     t.string   "article_number"
-    t.string   "name",                                   null: false
-    t.string   "url"
-    t.decimal  "price",          precision: 7, scale: 2
     t.string   "title",                                  null: false
+    t.string   "item_url"
+    t.decimal  "price",          precision: 7, scale: 2
+    t.string   "subtitle",                               null: false
     t.text     "description"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.string   "picture_url",                            null: false
   end
+
+  add_index "items", ["item_url"], name: "index_items_on_item_url", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
