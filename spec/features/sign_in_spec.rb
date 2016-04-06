@@ -10,12 +10,13 @@ feature "sign up", %{
   # - I must specify valid email address
   # - I must specify a password and confirm that password
   # - If I do not perform the above, I get an error message
-  # - If I specific with valid information, I register my account and am authenticated
+  # - If I specific with valid information, I register my account and am
+  #  authenticated
 
   let(:user) do
     User.create(
-    email: "asdf@asdf.com",
-    password: "asdf1234"
+      email: "asdf@asdf.com",
+      password: "asdf1234"
     )
   end
 

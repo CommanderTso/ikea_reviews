@@ -2,8 +2,13 @@ require 'rails_helper'
 
 describe User do
   it { should have_valid(:email).when('abcd@gmail.com', 'dcba@mailg.com') }
-  it { should_not have_valid(:email).when(nil, '', 'abc', 'users@come',
-     'usersba.com') }
+  it { should_not have_valid(:email).when(
+    nil,
+    '',
+    'abc',
+    'users@come',
+    'usersba.com'
+    ) }
 
   it 'has a matching password confirmation for the password' do
     user = User.new

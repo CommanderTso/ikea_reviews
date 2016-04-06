@@ -14,8 +14,8 @@ feature "edit", %{
 
   let (:user) do
     User.create(
-    email: "asdf@asdf.com",
-    password: "asdf1234"
+      email: "asdf@asdf.com",
+      password: "asdf1234"
     )
   end
 
@@ -26,7 +26,6 @@ feature "edit", %{
     fill_in 'Email', with: "asdf@asdf.com"
     fill_in 'Password', with: "asdf1234"
     click_button "Log in"
-
 
     visit edit_user_registration_path
     fill_in 'Password', with: "password"
@@ -45,7 +44,6 @@ feature "edit", %{
     fill_in 'Email', with: "asdf@asdf.com"
     fill_in 'Password', with: "asdf1234"
     click_button "Log in"
-
 
     visit edit_user_registration_path
     fill_in 'Password', with: "password"
