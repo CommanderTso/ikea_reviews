@@ -16,12 +16,7 @@ class ItemsController < ApplicationController
 			render :new and return
 		end
 
-		item_values = scrape_with_url(url)
-		@item.item_url = item_params[:item_url]
-		@item.title =  item_values[:title]
-		@item.subtitle =  item_values[:subtitle]
-		@item.picture_url =  item_values[:picture_url]
-		@item.price =  item_values[:price]
+		create_item(@item, url, item_params)
 
 		if @item.save
 			flash[:notice] = "Here's your item!"
@@ -44,6 +39,15 @@ class ItemsController < ApplicationController
 	end
 
 	private
+
+	def create_item(item, url, item_params)
+		item_values = scrape_with_url(url)
+		item.item_url = item_params[:item_url]
+		item.title =  item_values[:title]
+		item.subtitle =  item_values[:subtitle]
+		item.picture_url =  item_values[:picture_url]
+		item.price =  item_values[:price]
+	end
 
 	def validate_url(raw_url)
 		# make sure proper format and ikea site
