@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-feature "delete", %Q{
+feature "delete", %{
   As an authenticed user
   I want to delete my account
   because I am unhappy
 } do
 
-let (:user) do
-  User.create(
-  email: "asdf@asdf.com",
-  password: "asdf1234"
-  )
-end
+  let(:user) do
+    User.create(
+      email: "asdf@asdf.com",
+      password: "asdf1234"
+    )
+  end
 
   scenario 'user successfully deletes account' do
     user

@@ -1,23 +1,23 @@
 require 'rails_helper'
 
-feature "edit", %Q{
-  As an authenticed user
+feature "edit", %{
+  As an authenticated user
   I want to edit information
   so that I can change password
 } do
 
-let (:user) do
-  User.create(
-  email: "asdf@asdf.com",
-  password: "asdf1234"
-  )
-end
+  # ACCEPTANCE CRITERIA
+  # - I must specify valid email address
+  # - I must specify a password and confirm that password
+  # - If I do not perform the above, I get an error message
+  # - If I specific with valid information, I successfully update my account
 
-#ACCEPTANCE CRITERIA
-# - I must specify valid email address
-# - I must specify a password and confirm that password
-# - If I do not perform the above, I get an error message
-# - If I specific with valid information, I successfully update my account
+  let (:user) do
+    User.create(
+    email: "asdf@asdf.com",
+    password: "asdf1234"
+    )
+  end
 
   scenario 'user successfully changes password' do
     user
@@ -53,7 +53,8 @@ end
     fill_in 'Current password', with: "fdsafdsa"
     click_button 'Update'
 
-    expect(page).to have_content("1 error prohibited this user from being saved:")
+    expect(page).to have_content("1 error prohibited this user from
+     being saved:")
     expect(page).to have_content("Current password is invalid")
   end
 
