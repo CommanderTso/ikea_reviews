@@ -13,59 +13,60 @@ require 'rails_helper'
 # - Page must message users appropriately for invalid URLs / article numbes
 
 feature "User creates a new Ikea item" do
-	scenario "User enters a URL to create a new item" do
-		visit new_item_path
-		expect(page).to have_content("Enter your item here:")
-		expect(page).to have_content("Please use the Ikea URL or the item's article number")
+  scenario "User enters a URL to create a new item" do
+    item_url = "http://www.ikea.com/us/en/catalog/products/S99129122/"
 
-		fill_in "URL", with: "http://www.ikea.com/us/en/catalog/products/S99129122/"
-		click_button "Submit"
+    visit new_item_path
+    expect(page).to have_content("Enter your item here:")
+    expect(page).to have_content("Please use the Ikea URL or the item's " \
+      "article number")
 
-		expect(page).to have_content "EKTORP"
-		expect(page).to have_content "Footstool, Nordvalla light blue"
-		expect(page).to have_content "149.00"
-		expect(page).to have_css("img[src*='ektorp-footstool-blue__0386202_PE559152_S4.JPG']")
-	end
+    fill_in "URL", with: item_url
+    click_button "Submit"
 
-	scenario "User doesn't enter any info for item" do
-		visit new_item_path
-		click_button "Submit"
+    expect(page).to have_content "EKTORP"
+    expect(page).to have_content "Footstool, Nordvalla light blue"
+    expect(page).to have_content "149.00"
+    image_name = 'ektorp-footstool-blue__0386202_PE559152_S4.JPG'
+    expect(page).to have_css("img[src*=#{image_name}]")
+  end
 
-		expect(page).to have_content "Please enter a valid Ikea product URL or Article Number!"
-		expect(page).to have_content "Enter your item here:"
-	end
+  scenario "User doesn't enter any info for item" do
+    visit new_item_path
+    click_button "Submit"
 
-	scenario "User enters an item already created, gets sent to existing page" do
-		item = FactoryGirl.create(:item)
+    expect(page).to have_content "Please enter a valid Ikea product URL or " \
+      "Article Number!"
+    expect(page).to have_content "Enter your item here:"
+  end
 
-		visit new_item_path
-		fill_in "URL", with: item.item_url
-		click_button "Submit"
+  scenario "User enters an item already created, gets sent to existing page" do
+    item = FactoryGirl.create(:item)
 
-		expect(current_path).to eq("/items/#{item.id}")
+    visit new_item_path
+    fill_in "URL", with: item.item_url
+    click_button "Submit"
 
-	end
+    expect(current_path).to eq("/items/#{item.id}")
+  end
 
-	scenario "User enters an invalid URL to create a new item" do
-		visit new_item_path
-		fill_in "URL", with: "http://awdjhawkjdhawkjdhawkjdha"
-		click_button "Submit"
+  scenario "User enters an invalid URL to create a new item" do
+    visit new_item_path
+    fill_in "URL", with: "http://awdjhawkjdhawkjdhawkjdha"
+    click_button "Submit"
 
-		expect(page).to have_content("Please enter a valid Ikea product URL or Article Number!")
-		expect(page).to have_content("Enter your item here:")
-	end
+    expect(page).to have_content("Please enter a valid Ikea product URL " \
+      "or Article Number!")
+    expect(page).to have_content("Enter your item here:")
+  end
 
+  xscenario "User enters an Article Number to create a new item" do
+  end
 
-	xscenario "User enters an Article Number to create a new item" do
+  xscenario "User enters an Article Number & a URL to create a new item" do
+  end
 
-	end
-
-	xscenario "User enters both an Article Number and a URL to create a new item" do
-
-	end
-
-	xscenario "User enters an invalid Article Number to create a new item" do
-
-	end
+  xscenario "User enters an invalid Article Number to create a new item" do
+  end
 
 end
