@@ -10,13 +10,13 @@ require 'rails_helper'
 # -- Price
 #
 # - If the item is already created, just redirect user to that page
-# - Page must message users appropriately for invalid URLs / article numbes
+# - Page must message users appropriately for invalid URLs / article numbers
 
 feature "User creates a new Ikea item" do
   scenario "User enters a URL to create a new item" do
     visit new_item_path
     expect(page).to have_content("Enter your item here:")
-    expect(page).to have_content("Please use the Ikea URL or the item's article number")
+    expect(page).to have_content("Please enter an Ikea URL")
 
     fill_in "URL", with: "http://www.ikea.com/us/en/catalog/products/S99129122/"
     click_button "Submit"
@@ -31,7 +31,7 @@ feature "User creates a new Ikea item" do
     visit new_item_path
     click_button "Submit"
 
-    expect(page).to have_content "Please enter a valid Ikea product URL or Article Number!"
+    expect(page).to have_content "Please enter a valid Ikea product URL!"
     expect(page).to have_content "Enter your item here:"
   end
 
@@ -50,17 +50,7 @@ feature "User creates a new Ikea item" do
     fill_in "URL", with: "http://awdjhawkjdhawkjdhawkjdha"
     click_button "Submit"
 
-    expect(page).to have_content("Please enter a valid Ikea product URL or Article Number!")
+    expect(page).to have_content("Please enter a valid Ikea product URL!")
     expect(page).to have_content("Enter your item here:")
   end
-
-  xscenario "User enters an Article Number to create a new item" do
-  end
-
-  xscenario "User enters both an Article Number and a URL to create a new item" do
-  end
-
-  xscenario "User enters an invalid Article Number to create a new item" do
-  end
-
 end

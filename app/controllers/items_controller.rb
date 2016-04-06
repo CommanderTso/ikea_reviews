@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
     url = item_params[:item_url]
 
     if !validate_url(url)
-      flash[:error] = "Please enter a valid Ikea product URL or Article Number!"
+      flash[:error] = "Please enter a valid Ikea product URL!"
       render :new and return
     end
 
