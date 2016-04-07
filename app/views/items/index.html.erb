@@ -2,12 +2,22 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>IKEA REVIEWS</title>
+    <title>Welcome to EyeKea!</title>
   </head>
   <body>
-    <h1>IKEA REVIEW</h1>
+    <h1>Welcome to EyeKea!</h1>
     &#x1F436; &#128065; &#128273; &#128576; <br>
     <%= link_to 'Sign Up', new_user_registration_path %>
     <%= link_to "Log in", new_user_session_path %>
+
+    <ul>
+      <% @items.each do |item| %>
+        <li><%= link_to item.title, item_path(item) %></li>
+      <% end %>
+    </ul>
+
+    <p>
+      <%= link_to "Add a new item", new_item_path %>
+    </p>
   </body>
 </html>
