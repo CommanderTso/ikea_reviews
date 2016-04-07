@@ -36,7 +36,7 @@ feature "User creates a new Ikea item" do
   end
 
   scenario "User enters an item already created, gets sent to existing page" do
-    item = FactoryGirl.create(:item)
+    item = FactoryGirl.create(:item_1)
 
     visit new_item_path
     fill_in "URL", with: item.item_url
