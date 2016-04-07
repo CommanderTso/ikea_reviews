@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :authorize_user, except: [:index, :show]
+
   def index
     @items = Item.all
   end
@@ -76,5 +78,12 @@ class ItemsController < ApplicationController
 
   def item_already_exists?
     @item.errors[:item_url][0] == "has already been taken"
+  end
+
+  protected
+  def authorize_user
+    if !user_signed_in? || !current_user.admin?
+      raise ActionController::RoutingError.new("Not Found")
+    end
   end
 end
