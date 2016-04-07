@@ -27,13 +27,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :profile_picture %><br />
+    <%= f.label :profile_photo %><br />
     <%= image_tag @user.profile_photo.url %> <br/>
     <%= f.file_field :profile_photo %>
   </div>
 
   <div class="actions">
-    <br  /><%= f.submit "Update" %>
+    <br /><%= f.submit "Update" %>
   </div>
 <% end %>
 
