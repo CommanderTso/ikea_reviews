@@ -24,6 +24,7 @@ class ItemsController < ApplicationController
       redirect_to @item
     elsif item_already_exists?
       original_item = Item.find_by(item_url: @item.item_url)
+      flash[:notice] = "We've already got that one!  Here you go:"
       redirect_to original_item
     else
       flash[:errors] = @item.errors.full_messages.join(", ")

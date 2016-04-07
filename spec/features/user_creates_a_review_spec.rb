@@ -6,7 +6,6 @@ require 'rails_helper'
 #
 # User must rate the item at 1-5 stars
 # User can enter a description of their review
-# User can upload an optional picture for their review
 
 # Open Items:
 # - How long must reviews be?
@@ -18,14 +17,14 @@ feature "User creates a new review" do
     visit item_path(@item.id)
   end
 
-  scenario "User sees fields to review item on its page" do
+  scenario "User sees fields to review item on its page", :vcr do
     expect(page).to have_content "We'd love your review of the #{@item.title}!"
     expect(page).to have_field "Rating:"
     expect(page).to have_field "Your Review:"
     expect(page).to have_button "Upload a picture of your #{item.title}"
   end
 
-  scenario "User can enter & see a review for the item" do
+  scenario "User can enter & see a review for the item", :vcr do
     expect(page).to have_field "Rating:"
     select "3", from: "Rating:"
     fill_in "Your Review:", with: "Man, I love this furniture so much! " \
@@ -37,19 +36,9 @@ feature "User creates a new review" do
       "I drink so much coffee here, my kidneys are shot! Ow!"
   end
 
-  scenario "If the user doesn't enter a rating, reload and message them" do
+  scenario "If the user doesn't enter a rating, reload and message them", :vcr do
     click_button "Submit"
 
     expect(page).to have_content("Rating must be between 1-5")
-  end
-
-  xscenario "User can upload a picture of their item & it will display" do
-    expect(page).to have_field "Rating:"
-    select "3", from: "Rating:"
-    fill_in "Your Review:", with: "Man, I love this furniture so much! " \
-      "I drink so much coffee here, my kidneys are shot! Ow!"
-
-    click_button "Upload a picture of your #{item.title}"
-
   end
 end
