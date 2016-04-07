@@ -21,7 +21,6 @@ feature "User creates a new review" do
     expect(page).to have_content "We'd love your review of the #{@item.title}!"
     expect(page).to have_field "Rating:"
     expect(page).to have_field "Your Review:"
-    expect(page).to have_button "Upload a picture of your #{item.title}"
   end
 
   scenario "User can enter & see a review for the item", :vcr do
