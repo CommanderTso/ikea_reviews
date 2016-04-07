@@ -21,6 +21,7 @@ gem 'carrierwave'
 
 gem 'foundation-rails'
 gem 'dotenv-rails'
+gem 'nokogiri'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -44,3 +45,9 @@ end
 group :test do
   gem 'coveralls', require: false
 end
+
+group :production do
+  gem 'rails_12factor'
+end
+
+ruby "2.2.3"
