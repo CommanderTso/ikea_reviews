@@ -4,8 +4,8 @@ feature "profile photo" do
 
   let (:user) do
     User.create(
-    email: "asdf@asdf.com",
-    password: "asdf1234"
+      email: "asdf@asdf.com",
+      password: "asdf1234"
     )
   end
 
