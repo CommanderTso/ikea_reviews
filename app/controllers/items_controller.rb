@@ -34,9 +34,11 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @reviews = @item.reviews
+    @reviews = @item.reviews.order(created_at: :desc)
     @review = Review.new
     @rating_options = Review::RATING_OPTIONS
+
+    @headline = set_show_headline(@item, @reviews.count)
   end
 
   def item_params
@@ -44,6 +46,21 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def set_show_headline(item, review_count)
+    headline = "Reviews"
+    if review_count > 0
+      rating_sum = item.reviews.pluck(:rating).inject { |sum, n| sum + n }
+      rating_count = item.reviews.count
+      average_review = (rating_sum.to_f / rating_count).round(2)
+
+      headline += " - Average Review Score: #{average_review}"
+    end
+    headline
+  end
+
+  def calculate_average_review
+  end
 
   def create_item(item, url, item_params)
     item_values = scrape_with_url(url)
