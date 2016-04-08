@@ -3,16 +3,13 @@
 <h2><%= @item.price %></h2>
 <img src="<%= @item.picture_url %>" alt="<%= @item.title %>" />
 
-<h4>Reviews</h4>
-<ul>
+<h4><%= @headline %></h4>
+<ul id="review_list">
   <% if @reviews.empty? %>
     <li>No reviews yet!</li>
   <% else %>
     <% @reviews.each do |review| %>
-      <li>Rating: <%= review.rating %></li>
-      <ul>
-        <li><%= review.description %></li>
-      </ul>
+      <li>Rating: <%= review.rating %> - <%= review.description %></li>
     <% end %>
   <% end %>
 </ul>
