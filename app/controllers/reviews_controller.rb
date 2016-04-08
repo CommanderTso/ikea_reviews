@@ -5,11 +5,10 @@ class ReviewsController < ApplicationController
 
     if @review.save
       flash[:notice] = "Thanks for the review!"
-      redirect_to item_path(@item)
     else
       flash[:error] = @review.errors.full_messages.join(", ")
-      redirect_to item_path(@item)
     end
+    redirect_to item_path(@item)
   end
 
   private

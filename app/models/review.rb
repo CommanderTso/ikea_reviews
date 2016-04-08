@@ -11,5 +11,5 @@ class Review < ActiveRecord::Base
     ["3 - Mediocre", 3],
     ["2 - Bad", 2],
     ["1 - Awful", 1]
-  ]
+  ].freeze
 end
