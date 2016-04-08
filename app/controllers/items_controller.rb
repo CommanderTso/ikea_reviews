@@ -36,6 +36,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @reviews = @item.reviews
     @review = Review.new
+    @rating_options = Review::RATING_OPTIONS
   end
 
   def item_params

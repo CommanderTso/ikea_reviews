@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
 
     if @review.save
       flash[:notice] = "Thanks for the review!"
-      redirect_to item_path(@review.item)
+      redirect_to item_path(@item)
     else
       flash[:error] = @review.errors.full_messages.join(", ")
       redirect_to item_path(@item)
@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
   end
 
   private
-  
+
   def review_params
     params.require(:review).permit(
       :rating,

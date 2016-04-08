@@ -21,14 +21,7 @@
 
 <%= form_for [@item, @review] do |f| %>
   <%= f.label :rating, "Rating:" %>
-  <%= f.select :rating, options_for_select([
-    ["Pick a Rating", 0],
-    ["5 - Amazing", 5],
-    ["4 - Great", 4],
-    ["3 - Mediocre", 3],
-    ["2 - Bad", 2],
-    ["1 - Awful", 1]
-    ]) %>
+  <%= f.select :rating, options_for_select(@rating_options) %>
 
   <%= f.label :description, "Your Review:" %>
   <%= f.text_area :description %>
