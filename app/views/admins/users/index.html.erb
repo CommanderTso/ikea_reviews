@@ -8,7 +8,7 @@
     <h1>List of all Users</h1>
     <ul>
       <% @users.each do |user| %>
-        <li> <%= user.email  %>  </li>
+        <li> <%= user.email %> <%= button_to "Delete", admins_user_path(:id => user.id), :method => :delete %> </li>
       <% end %>
     </ul>
   </body>

@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :items, only: [:new, :create, :index, :show]
   resources :admins, only: [:index]
   namespace :admins do
-    resources :users, only: [:index]
-    resources :items, only: [:index]
+    resources :users, only: [:index, :destroy]
+    resources :items, only: [:index, :destroy]
     resources :reviews, only: [:index]
   end
 end
