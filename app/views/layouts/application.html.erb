@@ -7,6 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% flash.each do |key, value| %>
+    <%= value %>
+  <% end %>
 
 <nav>
   <ul>
@@ -19,9 +22,6 @@
     <% end %>
   </ul>
 </nav>
-
-<p class="notice"><%= notice %></p>
-<p calss="alert"><%= alert %></p>
 
 <%= yield %>
 
