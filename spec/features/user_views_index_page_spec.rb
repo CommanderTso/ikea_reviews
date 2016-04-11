@@ -33,7 +33,7 @@ feature "User views index page to see items" do
   #   binding.pry
   # end
 
-  scenario "TESTING FACTORY GIRL", :vcr, focus: true do
+  scenario "User visits '/items', sees page numbers for additional items", :vcr do
     (1..100).each do |n|
       create(
         :item,
