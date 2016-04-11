@@ -1,11 +1,16 @@
 require 'rails_helper'
 
-feature "admin login" do
+feature "admin deletes user" do
 
   User.create(
     email: "pinkpinksopink@gmail.com",
     password: "123123123",
     role: "admin"
+  )
+
+  User.create(
+    email: "asdf@gmail.com",
+    password: "123123123",
   )
 
   scenario "admin successfully deletes users" do
@@ -16,10 +21,10 @@ feature "admin login" do
     click_button "Log in"
 
     click_link "Admin Section"
+    click_link "Users"
+    expect(page).to have_content "asdf@gmail.com"
 
-    expect(page.current_path).to eq admins_path
-    expect(page).to have_content "Users"
-    expect(page).to have_content "Items"
-    expect(page).to have_content "Reviews"
+    click_button('Delete', match: :first)
+    expect(page).to_not have_content "asdf@gmail.com"
   end
 end
