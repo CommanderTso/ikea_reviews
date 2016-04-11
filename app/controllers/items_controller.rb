@@ -81,6 +81,7 @@ class ItemsController < ApplicationController
   end
 
   protected
+
   def authorize_user
     if !user_signed_in?
       raise ActionController::RoutingError.new("Not Found")

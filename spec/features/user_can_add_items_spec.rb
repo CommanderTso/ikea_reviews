@@ -15,9 +15,9 @@ require 'rails_helper'
 feature "User creates a new Ikea item" do
   let(:user) do
     User.create(
-    email: "asdf@asdf.com",
-    password: "asdf1234"
-    )
+      email: "asdf@asdf.com",
+      password: "asdf1234"
+  )
   end
 
   before(:each) do

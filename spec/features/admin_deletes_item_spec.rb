@@ -20,7 +20,6 @@ feature "admin deletes an item" do
     )
   end
 
-
   scenario "admin successfully deletes an item" do
     user
     item
