@@ -2,16 +2,25 @@ require 'rails_helper'
 
 feature "admin login" do
 
-  User.create(
-    email: "pinkpinksopink@gmail.com",
-    password: "123123123",
-    role: "admin"
-  )
+  let(:admin) do
+    User.create(
+      email: "pinkpinksopink@gmail.com",
+      password: "123123123",
+      role: "admin"
+    )
+  end
 
-  User.create(
-    email: "asdf@gmail.com",
-    password: "123123123",
-  )
+  let(:user) do
+    User.create(
+      email: "asdf@gmail.com",
+      password: "123123123",
+    )
+  end
+
+  before(:each) do
+    admin
+    user
+  end
 
   scenario "admin successfully logs in and views admin portal" do
     visit root_path

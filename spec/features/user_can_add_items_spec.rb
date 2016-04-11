@@ -13,6 +13,22 @@ require 'rails_helper'
 # - Page must message users appropriately for invalid URLs / article numbers
 
 feature "User creates a new Ikea item" do
+  let(:user) do
+    User.create(
+    email: "asdf@asdf.com",
+    password: "asdf1234"
+    )
+  end
+
+  before(:each) do
+    user
+    visit root_path
+    click_link "Log in"
+    fill_in 'Email', with: "asdf@asdf.com"
+    fill_in 'Password', with: "asdf1234"
+    click_button "Log in"
+  end
+
   scenario "User enters a URL to create a new item" do
     visit new_item_path
     expect(page).to have_content("Enter your item here:")

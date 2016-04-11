@@ -7,7 +7,21 @@ require 'rails_helper'
 # Links should lead to item show pages
 
 feature "User views index page to see items" do
+  let(:user) do
+    User.create(
+      email: "asdf@asdf.com",
+      password: "asdf1234"
+    )
+  end
+
   before(:each) do
+    user
+    visit root_path
+    click_link "Log in"
+    fill_in 'Email', with: "asdf@asdf.com"
+    fill_in 'Password', with: "asdf1234"
+    click_button "Log in"
+    
     @item1 = create(:item)
     @item2 = create(
       :item,
