@@ -11,7 +11,6 @@ class Item < ActiveRecord::Base
 
   def calculate_average_review_score
     rating_sum = reviews.inject(0) { |sum, review| sum + review.rating }
-    rating_count = reviews.count
-    (rating_sum.to_f / rating_count).round(2)
+    (rating_sum.to_f / reviews.count).round(2)
   end
 end
