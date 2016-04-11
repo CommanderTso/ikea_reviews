@@ -6,7 +6,7 @@ feature "delete", %{
   because I am unhappy
 } do
 
-  let(:user) do
+  let!(:user) do
     User.create(
       email: "asdf@asdf.com",
       password: "asdf1234"
@@ -14,8 +14,6 @@ feature "delete", %{
   end
 
   scenario 'user successfully deletes account' do
-    user
-
     visit new_user_session_path
     fill_in 'Email', with: "asdf@asdf.com"
     fill_in 'Password', with: "asdf1234"

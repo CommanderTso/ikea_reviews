@@ -80,7 +80,7 @@ class ItemsController < ApplicationController
     @item.errors[:item_url][0] == "has already been taken"
   end
 
-  protected
+  private
 
   def authorize_user
     if !user_signed_in?

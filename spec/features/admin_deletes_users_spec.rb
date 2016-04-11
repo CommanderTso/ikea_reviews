@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "admin deletes user" do
 
-  let(:admin) do
+  let!(:admin) do
     User.create(
       email: "pinkpinksopink@gmail.com",
       password: "123123123",
@@ -10,7 +10,7 @@ feature "admin deletes user" do
     )
   end
 
-  let(:user) do
+  let!(:user) do
     User.create(
       email: "asdf@gmail.com",
       password: "123123123",
@@ -18,8 +18,6 @@ feature "admin deletes user" do
   end
 
   scenario "admin successfully deletes users" do
-    admin
-    user
     visit root_path
     click_link "Log in"
     fill_in "Email", with: "pinkpinksopink@gmail.com"

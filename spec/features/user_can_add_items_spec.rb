@@ -13,15 +13,14 @@ require 'rails_helper'
 # - Page must message users appropriately for invalid URLs / article numbers
 
 feature "User creates a new Ikea item" do
-  let(:user) do
+  let!(:user) do
     User.create(
       email: "asdf@asdf.com",
       password: "asdf1234"
-  )
+    )
   end
 
   before(:each) do
-    user
     visit root_path
     click_link "Log in"
     fill_in 'Email', with: "asdf@asdf.com"

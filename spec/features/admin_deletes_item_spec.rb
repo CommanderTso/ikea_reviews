@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "admin deletes an item" do
 
-  let(:user) do
+  let!(:user) do
     User.create(
       email: "pinkpinksopink@gmail.com",
       password: "123123123",
@@ -10,7 +10,7 @@ feature "admin deletes an item" do
     )
   end
 
-  let(:item) do
+  let!(:item) do
     Item.create(
       item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
       title: "HEMNES",
@@ -21,8 +21,6 @@ feature "admin deletes an item" do
   end
 
   scenario "admin successfully deletes an item" do
-    user
-    item
     visit root_path
     click_link "Log in"
     fill_in "Email", with: "pinkpinksopink@gmail.com"

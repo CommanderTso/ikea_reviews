@@ -7,23 +7,19 @@ require 'rails_helper'
 # Links should lead to item show pages
 
 feature "User views index page to see items" do
-  let(:user) do
+  let!(:user) do
     User.create(
       email: "asdf@asdf.com",
       password: "asdf1234"
     )
   end
 
-  before(:each) do
-    user
-    visit root_path
-    click_link "Log in"
-    fill_in 'Email', with: "asdf@asdf.com"
-    fill_in 'Password', with: "asdf1234"
-    click_button "Log in"
-    
-    @item1 = create(:item)
-    @item2 = create(
+  let!(:item1) do
+    create(:item)
+  end
+
+  let!(:item2) do
+    create(
       :item,
       item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
       title: "HEMNES",
@@ -33,31 +29,39 @@ feature "User views index page to see items" do
     )
   end
 
+  before(:each) do
+    visit root_path
+    click_link "Log in"
+    fill_in 'Email', with: "asdf@asdf.com"
+    fill_in 'Password', with: "asdf1234"
+    click_button "Log in"
+  end
+
   scenario "User visits '/', gets redirected to /items" do
     visit root_path
 
     expect(page).to have_content "Welcome to EyeKea!"
-    expect(page).to have_content @item2.title
-    expect(page).to have_content @item1.title
+    expect(page).to have_content item2.title
+    expect(page).to have_content item1.title
   end
 
   scenario "User visits '/items', sees list of items & link to add more" do
     visit items_path
 
     expect(page).to have_content "Welcome to EyeKea!"
-    expect(page).to have_link @item1.title
-    expect(page).to have_link @item2.title
+    expect(page).to have_link item1.title
+    expect(page).to have_link item2.title
     expect(page).to have_link "Add a new item"
   end
 
   scenario "User clicks item link, gets taken to items#show page" do
     visit items_path
 
-    click_link @item1.title
+    click_link item1.title
 
-    expect(page).to have_content @item1.title
-    expect(page).to have_content @item1.subtitle
-    expect(page).to have_xpath("/html/body/img[@src='#{@item1.picture_url}']")
+    expect(page).to have_content item1.title
+    expect(page).to have_content item1.subtitle
+    expect(page).to have_xpath("/html/body/img[@src='#{item1.picture_url}']")
   end
 
   scenario "Clicking Add Item takes you the user to the add item page" do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "admin login" do
 
-  let(:admin) do
+  let!(:admin) do
     User.create(
       email: "pinkpinksopink@gmail.com",
       password: "123123123",
@@ -10,7 +10,7 @@ feature "admin login" do
     )
   end
 
-  let(:user) do
+  let!(:user) do
     User.create(
       email: "asdf@gmail.com",
       password: "123123123",
@@ -18,13 +18,11 @@ feature "admin login" do
   end
 
   before(:each) do
-    admin
-    user
+    visit root_path
+    click_link "Log in"
   end
 
   scenario "admin successfully logs in and views admin portal" do
-    visit root_path
-    click_link "Log in"
     fill_in "Email", with: "pinkpinksopink@gmail.com"
     fill_in "Password", with: "123123123"
     click_button "Log in"
@@ -38,8 +36,6 @@ feature "admin login" do
   end
 
   scenario "non-admin tries to access admin portal" do
-    visit root_path
-    click_link "Log in"
     fill_in "Email", with: "asdf@gmail.com"
     fill_in "Password", with: "123123123"
     click_button "Log in"
@@ -51,8 +47,6 @@ feature "admin login" do
   end
 
   scenario "non-admin tries to access admin portal lists" do
-    visit root_path
-    click_link "Log in"
     fill_in "Email", with: "asdf@gmail.com"
     fill_in "Password", with: "123123123"
     click_button "Log in"
