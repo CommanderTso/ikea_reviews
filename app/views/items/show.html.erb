@@ -4,15 +4,16 @@
 <img src="<%= @item.picture_url %>" alt="<%= @item.title %>" />
 
 <h4><%= @headline %></h4>
-<ul id="review_list">
-  <% if @reviews.empty? %>
-  <li>No reviews yet!</li>
-  <% else %>
-  <% @reviews.each do |review| %>
-  <li>Rating: <%= review.rating %> - <%= review.description %></li>
-  <% end %>
-  <% end %>
-</ul>
+<% if @reviews.empty? %>
+  <p>No reviews yet!</p>
+<% else %>
+  <ul id="review_list">
+    <% @reviews.each do |review| %>
+      <li>Rating: <%= review.rating %> - <%= review.description %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <p>
   <%= paginate @reviews %>
 </p>
@@ -20,11 +21,11 @@
 <h4>We'd love your review of the <%= @item.title %>!</h4>
 
 <%= form_for [@item, @review] do |f| %>
-<%= f.label :rating, "Rating:" %>
-<%= f.select :rating, options_for_select(@rating_options) %>
+  <%= f.label :rating, "Rating:" %>
+  <%= f.select :rating, options_for_select(@rating_options) %>
 
-<%= f.label :description, "Your Review:" %>
-<%= f.text_area :description %>
+  <%= f.label :description, "Your Review:" %>
+  <%= f.text_area :description %>
 
-<%= f.submit "Submit" %>
+  <%= f.submit "Submit" %>
 <% end %>
