@@ -50,15 +50,9 @@ class ItemsController < ApplicationController
   def set_show_headline(item, review_count)
     headline = "Reviews"
     if review_count > 0
-      headline += " - Average Review Score: #{calculate_average_review(item)}"
+      headline += " - Average Review Score: #{item.calculate_average_review_score}"
     end
     headline
-  end
-
-  def calculate_average_review(item)
-    rating_sum = item.reviews.pluck(:rating).inject { |sum, n| sum + n }
-    rating_count = item.reviews.count
-    (rating_sum.to_f / rating_count).round(2)
   end
 
   def create_item(item, url, item_params)
