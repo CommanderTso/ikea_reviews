@@ -6,4 +6,8 @@ class Item < ActiveRecord::Base
   def price
     sprintf('%.2f', read_attribute(:price))
   end
+
+  def self.search(query)
+    where("title like ?", "%#{query}%")
+  end
 end
