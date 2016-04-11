@@ -8,6 +8,6 @@ class Item < ActiveRecord::Base
   end
 
   def self.search(query)
-    where("title like ?", "%#{query}%")
+    where{ title =~ "#{query}%" }
   end
 end

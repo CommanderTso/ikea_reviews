@@ -12,6 +12,7 @@ gem 'devise'
 gem 'fog'
 gem "fog-aws"
 gem 'carrierwave'
+gem 'squeel'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
