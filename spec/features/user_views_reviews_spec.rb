@@ -14,17 +14,29 @@ feature "User sees reviews" do
     @review_1 = @item.reviews.first
     @review_2 = @item.reviews.second
     @review_3 = @item.reviews.third
-
-    visit item_path(@item)
   end
 
   scenario "User sees average review score", :vcr do
+    visit item_path(@item)
+
     expect(page).to have_content "Average Review Score: 3.33"
   end
 
-  scenario "User sees order newest to oldest", :vcr do
-    expect(page).to have_selector("ul#review_list li:nth-child(1)", text: @review_3.description)
-    expect(page).to have_selector("ul#review_list li:nth-child(2)", text: @review_2.description)
-    expect(page).to have_selector("ul#review_list li:nth-child(3)", text: @review_1.description)
+  scenario "User visits item show page to see reviews, sees page numbers for additional reviews", :vcr do
+      item_2 = create(:item_with_100_reviews)
+      visit item_path(item_2)
+      save_and_open_page
+      expect(page).to have_link("2")
+      expect(page).to have_link("3")
+      expect(page).to have_link("Next ›")
+      expect(page).to have_link("Last »")
+    end
+
+    scenario "User sees order newest to oldest", :vcr do
+      visit item_path(@item)
+
+      expect(page).to have_selector("ul#review_list li:nth-child(1)", text: @review_3.description)
+      expect(page).to have_selector("ul#review_list li:nth-child(2)", text: @review_2.description)
+      expect(page).to have_selector("ul#review_list li:nth-child(3)", text: @review_1.description)
+    end
   end
-end
