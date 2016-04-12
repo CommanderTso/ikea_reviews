@@ -9,12 +9,19 @@ require 'rails_helper'
 # - An item's category is shown on its show page & is a clickable link
 
 feature "Site has a category attached to each item" do
+  before(:each) do
+    create(:item_1)
+    create(:item_3)
+    create(:item_4)
+  end
+
   scenario "User can select from a pull-down to view a category's items", :vcr do
     visit root_path
 
     expect(page).to have_content "View by Category:"
 
-    select "Living Room", from: "categories"
+    select "Living room", from: "View by Category:"
+    click_button "Go!"
 
     expect(page).to have_link("TILLFÄLLE")
     expect(page).to have_link("ALÄNG")
@@ -33,7 +40,7 @@ feature "Site has a category attached to each item" do
 
     expect(page).to have_link "Living Room"
 
-    click_link "Living Room"
+    click_link "Living room"
 
     expect(page).to have_link("TILLFÄLLE")
     expect(page).to have_link("ALÄNG")

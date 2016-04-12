@@ -1,6 +1,11 @@
 class ItemsController < ApplicationController
   def index
     @items = Item.order(:title).page params[:page]
+
+    @categories_list = []
+    Category.all.each do |category|
+      @categories_list << [category.name, category.id]
+    end
   end
 
   def new
@@ -56,12 +61,15 @@ class ItemsController < ApplicationController
   end
 
   def create_item(item, url, item_params)
-    item_values = scrape_with_url(url)
     item.item_url = item_params[:item_url]
-    item.title = item_values[:title]
-    item.subtitle = item_values[:subtitle]
-    item.picture_url = item_values[:picture_url]
-    item.price =  item_values[:price]
+
+    scraped_values = scrape_with_url(url)
+
+    item.category = Category.find_or_create_by(name: scraped_values[:category])
+    item.title = scraped_values[:title]
+    item.subtitle = scraped_values[:subtitle]
+    item.picture_url = scraped_values[:picture_url]
+    item.price =  scraped_values[:price]
   end
 
   def validate_url(raw_url)
@@ -84,6 +92,7 @@ class ItemsController < ApplicationController
     return_hash[:subtitle] = parsed_page.xpath('//div[@id="type"]').text.strip
     return_hash[:picture_url] = "http://www.ikea.com#{parsed_page.xpath('//img[@id="productImg"]//@src').text}"
     return_hash[:price] = parsed_page.xpath('//head//meta[@name="price"]//@content').text.delete("$")
+    return_hash[:category] = parsed_page.xpath('//head//meta[@name="IRWStats.categoryLocal"]//@content').text
 
     return_hash
   end
