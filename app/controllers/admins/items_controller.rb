@@ -1,6 +1,6 @@
 class Admins::ItemsController < ApplicationController
   before_filter :authorized?
-  
+
   def index
     @items = Item.all
   end
