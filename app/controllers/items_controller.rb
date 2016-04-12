@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @items = Item.order(:title).page params[:page]
   end
 
   def new
@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @reviews = @item.reviews.order(created_at: :desc)
+    @reviews = @item.reviews.order(created_at: :desc).page(params[:page])
     @review = Review.new
     @rating_options = Review::RATING_OPTIONS
 

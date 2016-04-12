@@ -12,6 +12,17 @@ FactoryGirl.define do
       item_url "http://www.ikea.com/us/en/catalog/products/80176284/"
       picture_url "http://www.ikea.com/us/en/images/products/hemnes-coffee-table-brown__0104030_PE250678_S4.JPG"
       price "139.00"
+
+      factory :item_with_100_reviews do
+        after(:create) do |item|
+          25.times do
+            create(:review, rating: 3, item: item)
+            create(:review, rating: 4, item: item)
+            create(:review, rating: 5, item: item)
+            create(:review, rating: 2, item: item)
+          end
+        end
+      end
     end
 
     factory :item_with_3_reviews do
