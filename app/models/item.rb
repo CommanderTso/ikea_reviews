@@ -12,7 +12,7 @@ class Item < ActiveRecord::Base
   def self.search(query)
     where { title =~ "#{query}%" }
   end
-  
+
   def calculate_average_review_score
     rating_sum = reviews.inject(0) { |sum, review| sum + review.rating }
     (rating_sum.to_f / reviews.count).round(2)
