@@ -1,6 +1,4 @@
-class Admins::ItemsController < ApplicationController
-  before_filter :authorized?
-
+class Admins::ItemsController < AdminsController
   def index
     @items = Item.all
   end
@@ -9,17 +7,5 @@ class Admins::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.destroy
     redirect_to admins_items_path
-  end
-
-  private
-
-  def authorized?
-    if current_user == nil
-      flash[:error] = "Please sign in!"
-      redirect_to root_path
-    elsif current_user.role != "admin"
-      flash[:error] = "You are not authorized to view that page."
-      redirect_to root_path
-    end
   end
 end
