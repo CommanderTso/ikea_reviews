@@ -23,6 +23,7 @@ gem 'squeel'
 gem 'foundation-rails'
 gem 'dotenv-rails'
 gem 'nokogiri'
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

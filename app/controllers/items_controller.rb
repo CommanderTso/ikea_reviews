@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
   def index
     if !params[:search].nil?
-      @items = Item.search(params[:search]).order("created_at DESC")
+      @items = Item.search(params[:search]).order(:title).page(params[:page])
     else
-      @items = Item.all.order('created_at DESC')
+      @items = Item.order(:title).page(params[:page])
     end
   end
 
@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @reviews = @item.reviews.order(created_at: :desc)
+    @reviews = @item.reviews.order(created_at: :desc).page(params[:page])
     @review = Review.new
     @rating_options = Review::RATING_OPTIONS
 
