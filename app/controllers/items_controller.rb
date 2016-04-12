@@ -28,9 +28,6 @@ class ItemsController < ApplicationController
       original_item = Item.find_by(item_url: @item.item_url)
       flash[:notice] = "We've already got that one!  Here you go:"
       redirect_to original_item
-    else
-      flash[:errors] = @item.errors.full_messages.join(", ")
-      redirect_to new_item_path
     end
   end
 
@@ -99,7 +96,7 @@ class ItemsController < ApplicationController
   def authorize_user
     if !user_signed_in?
       flash[:notice] = "Please sign in first"
-      raise ActionController::RoutingError.new("Not Found")
+      redirect_to new_user_registration_path
     end
   end
 end
