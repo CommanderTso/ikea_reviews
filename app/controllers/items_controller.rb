@@ -1,6 +1,13 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.order(:title).page params[:page]
+    if !params.has_key?(:search)
+      @items = Item.order(:title).page(params[:page])
+    elsif params[:search] == ""
+      flash[:error] = "Please enter a search term to search for products!"
+      @items = Item.order(:title).page(params[:page])
+    else
+      @items = Item.search(params[:search]).order(:title).page(params[:page])
+    end
 
     @categories_list = []
     Category.all.each do |category|

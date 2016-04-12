@@ -2,7 +2,7 @@ category = Category.find_or_create_by(name: "Living room")
 
 item_1 = Item.find_by(item_url: "http://www.ikea.com/us/en/catalog/products/80176284/")
 unless item_1.present?
-  Item.find_or_create_by(
+  item_1 = Item.find_or_create_by(
     item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
     title: "HEMNES",
     subtitle: "Coffee table, black-brown",
