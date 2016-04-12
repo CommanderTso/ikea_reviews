@@ -25,4 +25,13 @@ feature 'search' do
     expect(page).to have_content 'HEMNES'
     expect(page).to_not have_content 'EKTORP'
   end
+
+  scenario 'user does a blank search' do
+    visit root_path
+    fill_in "search", with: ""
+    click_button 'Search'
+
+    expect(page).to have_content 'HEMNES'
+    expect(page).to have_content 'EKTORP'
+  end
 end
