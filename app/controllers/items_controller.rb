@@ -28,6 +28,7 @@ class ItemsController < ApplicationController
       redirect_to @item
     elsif item_already_exists?
       original_item = Item.find_by(item_url: @item.item_url)
+      flash[:notice] = "We've already got that one!  Here you go:"
       redirect_to original_item
     else
       flash[:errors] = @item.errors.full_messages.join(", ")
@@ -37,6 +38,11 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @reviews = @item.reviews.order(created_at: :desc)
+    @review = Review.new
+    @rating_options = Review::RATING_OPTIONS
+
+    @headline = set_show_headline(@item, @reviews.count)
   end
 
   def item_params
@@ -44,6 +50,14 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def set_show_headline(item, review_count)
+    headline = "Reviews"
+    if review_count > 0
+      headline += " - Average Review Score: #{item.calculate_average_review_score}"
+    end
+    headline
+  end
 
   def create_item(item, url, item_params)
     item_values = scrape_with_url(url)

@@ -8,15 +8,8 @@ require 'rails_helper'
 
 feature "User views index page to see items" do
   before(:each) do
-    @item1 = create(:item)
-    @item2 = create(
-      :item,
-      item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
-      title: "HEMNES",
-      subtitle: "Coffee table, black-brown",
-      picture_url: "http://www.ikea.com/us/en/images/products/hemnes-coffee-table-brown__0104030_PE250678_S4.JPG",
-      price: "139.00"
-    )
+    @item1 = create(:item_1)
+    @item2 = create(:item_2)
   end
 
   scenario "User visits '/', gets redirected to /items" do
