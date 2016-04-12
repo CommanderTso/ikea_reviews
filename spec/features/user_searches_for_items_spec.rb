@@ -31,6 +31,7 @@ feature 'search' do
     fill_in "search", with: ""
     click_button 'Search'
 
+    expect(page).to have_content "Please enter a search term to search for products!"
     expect(page).to have_content 'HEMNES'
     expect(page).to have_content 'EKTORP'
   end
