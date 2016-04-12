@@ -13,7 +13,7 @@ FactoryGirl.define do
       item_url "http://www.ikea.com/us/en/catalog/products/80176284/"
       picture_url "http://www.ikea.com/us/en/images/products/hemnes-coffee-table-brown__0104030_PE250678_S4.JPG"
       price "139.00"
-<<<<<<< Updated upstream
+      category
 
       factory :item_with_100_reviews do
         after(:create) do |item|
@@ -25,8 +25,6 @@ FactoryGirl.define do
           end
         end
       end
-=======
-      category
     end
 
     factory :item_3 do
@@ -45,7 +43,6 @@ FactoryGirl.define do
       picture_url "http://www.ikea.com/us/en/images/products/tillfalle-coffee-table-assorted-colors__0374748_PE552974_S4.JPG"
       price "119.00"
       category
->>>>>>> Stashed changes
     end
 
     factory :item_with_3_reviews do
