@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "admin deletes an item" do
+feature "admin deletes a review" do
 
   let!(:admin) do
     User.create(
@@ -20,6 +20,24 @@ feature "admin deletes an item" do
     )
   end
 
+  let!(:review) do
+    Review.create(
+      item: item,
+      user: admin,
+      rating: 5,
+      description: "Great!"
+    )
+  end
+
+  let!(:review2) do
+    Review.create(
+      item: item,
+      user: admin,
+      rating: 1,
+      description: "Wasted money. I'll never ever shop at Ikea!"
+    )
+  end
+
   before(:each) do
     visit root_path
     click_link "Log in"
@@ -27,18 +45,24 @@ feature "admin deletes an item" do
     fill_in "Password", with: "123123123"
     click_button "Log in"
     click_link "Admin Section"
-    click_link "Items"
+    click_link "Reviews"
   end
 
-  scenario "admin views list of items" do
-    expect(page).to have_content "List of all Items"
+  scenario "admin views list of reviews" do
+    expect(page).to have_content "List of all Reviews"
     expect(page).to have_content "HEMNES"
+    expect(page).to have_content "5 - Great!"
+    expect(page).to have_content "1 - Wasted money. I'll never ever shop at
+     Ikea!"
   end
 
-  scenario "admin successfully deletes an item" do
+  scenario "admin successfully deletes a review" do
     expect(page).to have_content "HEMNES"
+    expect(page).to have_content "5 - Great!"
+    expect(page).to have_content "1 - Wasted money. I'll never ever shop at
+     Ikea!"
 
     click_button('Delete', match: :first)
-    expect(page).to_not have_content "HEMNES"
+    expect(page).to_not have_content "5 - Great!"
   end
 end

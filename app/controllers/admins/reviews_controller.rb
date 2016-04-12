@@ -2,6 +2,13 @@ class Admins::ReviewsController < ApplicationController
   before_filter :authorized?
 
   def index
+    @items = Item.all
+  end
+
+  def destroy
+    @review = Review.find(params[:id])
+    Review.destroy(@review)
+    redirect_to admins_reviews_path
   end
 
   private
