@@ -28,7 +28,7 @@ feature "User creates a new Ikea item" do
     click_button "Log in"
   end
 
-  scenario "User enters a URL to create a new item" do
+  scenario "User enters a URL to create a new item", :vcr do
     visit new_item_path
     expect(page).to have_content("Enter your item here:")
     expect(page).to have_content("Please enter an Ikea URL")
@@ -50,14 +50,17 @@ feature "User creates a new Ikea item" do
     expect(page).to have_content "Enter your item here:"
   end
 
-  scenario "User enters an item already created, gets sent to existing page" do
-    item = FactoryGirl.create(:item)
-
+  scenario "User enters an item already created, gets sent to existing page", :vcr do
+    # item = FactoryGirl.create(:item_1, title: "BLAHH")
     visit new_item_path
-    fill_in "URL", with: item.item_url
+    fill_in "URL", with: "http://www.ikea.com/us/en/catalog/products/S99129122/"
     click_button "Submit"
 
-    expect(current_path).to eq("/items/#{item.id}")
+    visit new_item_path
+    fill_in "URL", with: "http://www.ikea.com/us/en/catalog/products/S99129122/"
+    click_button "Submit"
+
+    expect(page).to have_content "We've already got that one!  Here you go:"
   end
 
   scenario "User enters an invalid URL to create a new item" do

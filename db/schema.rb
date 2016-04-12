@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20160407183719) do
 
   add_index "items", ["item_url"], name: "index_items_on_item_url", unique: true, using: :btree
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "rating",      null: false
+    t.text     "description"
+    t.string   "picture_url"
+    t.integer  "item_id",     null: false
+    t.integer  "user_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",       null: false
     t.string   "encrypted_password",     default: "",       null: false

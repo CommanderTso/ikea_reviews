@@ -44,6 +44,8 @@ end
 
 group :test do
   gem 'coveralls', require: false
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :production do
