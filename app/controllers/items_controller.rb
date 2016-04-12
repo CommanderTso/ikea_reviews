@@ -98,6 +98,7 @@ class ItemsController < ApplicationController
 
   def authorize_user
     if !user_signed_in?
+      flash[:notice] = "Please sign in first"
       raise ActionController::RoutingError.new("Not Found")
     end
   end

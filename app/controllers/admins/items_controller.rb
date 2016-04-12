@@ -7,7 +7,7 @@ class Admins::ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    Item.destroy(@item)
+    @item.destroy
     redirect_to admins_items_path
   end
 
