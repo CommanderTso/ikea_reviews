@@ -4,15 +4,19 @@
 <img src="<%= @item.picture_url %>" alt="<%= @item.title %>" />
 
 <h4><%= @headline %></h4>
-<ul id="review_list">
-  <% if @reviews.empty? %>
-    <li>No reviews yet!</li>
-  <% else %>
+<% if @reviews.empty? %>
+  <p>No reviews yet!</p>
+<% else %>
+  <ul id="review_list">
     <% @reviews.each do |review| %>
       <li>Rating: <%= review.rating %> - <%= review.description %></li>
     <% end %>
-  <% end %>
-</ul>
+  </ul>
+<% end %>
+
+<p>
+  <%= paginate @reviews %>
+</p>
 
 <h4>We'd love your review of the <%= @item.title %>!</h4>
 

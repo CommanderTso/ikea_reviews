@@ -29,6 +29,26 @@ feature "User views index page to see items" do
     expect(page).to have_link "Add a new item"
   end
 
+  # scenario "User visits '/items', sees page links." do
+  #   binding.pry
+  # end
+
+  scenario "User visits '/items', sees page numbers for additional items", :vcr do
+    (1..100).each do |n|
+      create(
+        :item,
+        title: "TESTITEM#{n}",
+        item_url: "http://www.ikea.com/us/en/catalog/products/#{10000000 + n}/"
+      )
+    end
+
+    visit items_path
+    expect(page).to have_link("2")
+    expect(page).to have_link("3")
+    expect(page).to have_link("Next ›")
+    expect(page).to have_link("Last »")
+  end
+
   scenario "User clicks item link, gets taken to items#show page" do
     visit items_path
 
