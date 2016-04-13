@@ -6,10 +6,16 @@
   </head>
   <body>
     <h1>List of all Items</h1>
-    <ul>
-      <% @items.each do |item| %>
-        <li> <%= link_to item.title, item_path(item) %> <%= button_to "Delete", admins_item_path(:id => item.id), :method => :delete %> </li>
-      <% end %>
-    </ul>
+      <ul>
+        <% @items.each do |item| %>
+          <li>
+            <%= link_to item.title, item_path(item) %>
+            <div class = "divider"/>
+              <%= button_to "Delete", admins_item_path(:id => item.id),
+               :method => :delete %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
   </body>
 </html>

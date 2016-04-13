@@ -9,18 +9,22 @@
     <ul>
       <% @items.each do |item| %>
         <li> <%= link_to item.title, item_path(item) %> </li>
-          <ul>
-            <% unless item.reviews.empty? %>
+          <% unless item.reviews.empty? %>
+            <ul>
               <% item.reviews.each do |review| %>
-                <li> <%= review.rating %> - <%= review.description %>
-                   <%= button_to "Delete", admins_review_path(:id => review.id),
-                    :method => :delete %> </li>
-                    <ul>
-                      <li> Posted By: <%= review.user.email %> </li>
-                    </ul>
+                <li>
+                  <%= review.rating %> - <%= review.description %>
+                    <div class = "divider"/>
+                     <%= button_to "Delete", admins_review_path(:id => review.id),
+                      :method => :delete %>
+                    </div>
+                </li>
+                  <ul>
+                    <li> Posted By: <%= review.user.email %> </li>
+                  </ul>
               <% end %>
-          </ul>
-            <% end %> </br>
+            </ul>
+          <% end %> </br>
       <% end %>
     </ul>
   </body>
