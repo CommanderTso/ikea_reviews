@@ -89,7 +89,7 @@ class ItemsController < ApplicationController
     return_hash[:title] = parsed_page.xpath('//div[@id="name"]').text.strip
     return_hash[:subtitle] = parsed_page.xpath('//div[@id="type"]').text.strip
     return_hash[:picture_url] = "http://www.ikea.com#{parsed_page.xpath('//img[@id="productImg"]//@src').text}"
-    return_hash[:price] = parsed_page.xpath('//head//meta[@name="price"]//@content').text.delete("$")
+    return_hash[:price] = parsed_page.xpath('//head//meta[@name="price"]//@content').text.delete("$").delete(",")
 
     return_hash
   end
