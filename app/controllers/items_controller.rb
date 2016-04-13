@@ -102,7 +102,7 @@ class ItemsController < ApplicationController
 
   def authorize_user
     if !user_signed_in?
-      flash[:notice] = "Please sign in first"
+      flash[:notice] = "Please sign up to add a new item!"
       redirect_to new_user_registration_path
     end
   end

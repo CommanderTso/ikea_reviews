@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @item = Item.find(params[:item_id])
+    @reviews = @item.reviews
 
     if @review.save
       flash[:notice] = "Thanks for the review!"
