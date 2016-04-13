@@ -12,7 +12,7 @@ feature "edit", %{
   # - If I do not perform the above, I get an error message
   # - If I specific with valid information, I successfully update my account
 
-  let (:user) do
+  let!(:user) do
     User.create(
       email: "asdf@asdf.com",
       password: "asdf1234"
@@ -20,8 +20,6 @@ feature "edit", %{
   end
 
   scenario 'user successfully changes password' do
-    user
-
     visit new_user_session_path
     fill_in 'Email', with: "asdf@asdf.com"
     fill_in 'Password', with: "asdf1234"
@@ -38,8 +36,6 @@ feature "edit", %{
   end
 
   scenario 'user enters incorrect current password' do
-    user
-
     visit new_user_session_path
     fill_in 'Email', with: "asdf@asdf.com"
     fill_in 'Password', with: "asdf1234"
@@ -57,8 +53,6 @@ feature "edit", %{
   end
 
   scenario 'user enters invalid email' do
-    user
-
     visit new_user_session_path
     fill_in 'Email', with: "asdf@asdf.com"
     fill_in 'Password', with: "asdf1234"

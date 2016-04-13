@@ -13,7 +13,7 @@ feature "sign up", %{
   # - If I specific with valid information, I register my account and am
   #  authenticated
 
-  let(:user) do
+  let!(:user) do
     User.create(
       email: "asdf@asdf.com",
       password: "asdf1234"
@@ -32,7 +32,6 @@ feature "sign up", %{
   end
 
   scenario 'user enters the email that is already existing' do
-    user
     visit new_user_registration_path
     fill_in 'Email', with: "asdf@asdf.com"
     fill_in 'Password', with: "password"
