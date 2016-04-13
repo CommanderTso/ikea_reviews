@@ -13,7 +13,7 @@ feature "admin deletes user" do
   let!(:user) do
     User.create(
       email: "asdf@gmail.com",
-      password: "123123123",
+      password: "123123123"
     )
   end
 

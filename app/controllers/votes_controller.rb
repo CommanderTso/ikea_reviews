@@ -25,8 +25,8 @@ class VotesController < ApplicationController
 
     @vote = Vote.find_or_create_by(review: @review, user: @user)
 
-    if @vote.score == new_vote
-       @vote.score = 0
+    if new_vote == @vote.score
+      @vote.score = 0
     else
       @vote.score = new_vote
     end
@@ -37,7 +37,6 @@ class VotesController < ApplicationController
       flash[:error] = @vote.errors.full_messages.join(", ")
     end
     redirect_to @review.item
-
   end
 
   def vote_params

@@ -15,6 +15,6 @@ class Review < ActiveRecord::Base
   ].freeze
 
   def net_rating
-    self.votes.inject(0) {|sum, vote| sum + vote.score }
+    votes.inject(0) { |sum, vote| sum + vote.score }
   end
 end
