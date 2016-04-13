@@ -8,7 +8,7 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :item_url
 
   def price
-    sprintf('%.2f', read_attribute(:price))
+    sprintf('$%.2f', read_attribute(:price))
   end
 
   def self.search(query)

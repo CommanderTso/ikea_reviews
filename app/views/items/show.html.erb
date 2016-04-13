@@ -6,6 +6,7 @@
 <img src="<%= @item.picture_url %>" alt="<%= @item.title %>" />
 
 <h4><%= @headline %></h4>
+<h3>Category: <%= link_to @item.category.name, category_path(@item.category) %></h3>
 <% if @reviews.empty? %>
   <p>No reviews yet!</p>
 <% else %>

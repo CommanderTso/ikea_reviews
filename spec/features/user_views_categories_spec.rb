@@ -15,13 +15,12 @@ feature "Site has a category attached to each item" do
     create(:item_4)
   end
 
-  scenario "User can select from a pull-down to view a category's items", :vcr do
+  scenario "User can click a link to view a category's items", :vcr do
     visit root_path
 
     expect(page).to have_content "View by Category:"
 
-    select "Living room", from: "View by Category:"
-    click_button "Go!"
+    click_link "Living room"
 
     expect(page).to have_link("TILLFÄLLE")
     expect(page).to have_link("ALÄNG")
@@ -38,7 +37,7 @@ feature "Site has a category attached to each item" do
     visit root_path
     click_link("TILLFÄLLE")
 
-    expect(page).to have_link "Living Room"
+    expect(page).to have_link "Living room"
 
     click_link "Living room"
 

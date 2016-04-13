@@ -15,14 +15,6 @@
     <%= link_to 'Sign Up', new_user_registration_path %>
     <%= link_to "Log in", new_user_session_path %>
 
-    <p>
-      <%= form_tag("/category/:id", method: "get") do %>
-        <%= label_tag(:category, "View by Category:") %>
-        <%= select_tag(:category, options_for_select(@categories_list)) %>
-        <%= submit_tag("Go!") %>
-      <% end %>
-    </p>
-
     <ul>
       <% @items.each do |item| %>
         <li><%= link_to item.title, item_path(item) %></li>
@@ -35,6 +27,13 @@
 
     <p>
       <%= paginate @items %>
+    </p>
+
+    <p>
+      <h3>View by Category:</h3>
+      <% @categories.each do |category| %>
+        <li><%= link_to category.name, category_path(category.id) %></li>
+      <% end %>
     </p>
   </body>
 </html>

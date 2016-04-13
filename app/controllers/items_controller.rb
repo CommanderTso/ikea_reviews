@@ -9,10 +9,7 @@ class ItemsController < ApplicationController
       @items = Item.search(params[:search]).order(:title).page(params[:page])
     end
 
-    @categories_list = []
-    Category.all.each do |category|
-      @categories_list << [category.name, category.id]
-    end
+    @categories = Category.all
   end
 
   def new
