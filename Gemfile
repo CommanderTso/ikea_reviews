@@ -48,6 +48,7 @@ group :test do
   gem 'coveralls', require: false
   gem 'webmock'
   gem 'vcr'
+  gem 'database_cleaner'
 end
 
 group :production do
