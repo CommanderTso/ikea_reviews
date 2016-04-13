@@ -11,7 +11,18 @@
 <% else %>
   <ul id="review_list">
     <% @reviews.each do |review| %>
-      <li>Rating: <%= review.rating %> - <%= review.description %></li>
+      <li>
+        Rating: <%= review.rating %> - <%= review.description %>
+        <% if review.user == current_user %>
+          <div class = "divider"/>
+            <%= button_to "Delete", item_review_path(:item_id => review.id),
+            :method => :delete %>
+          </div>
+        <% end %>
+      </li>
+        <ul>
+          <li> Posted by: <%= review.user.email %> </li>
+        </ul>
     <% end %>
   </ul>
 <% end %>

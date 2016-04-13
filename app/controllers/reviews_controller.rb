@@ -12,6 +12,15 @@ class ReviewsController < ApplicationController
     redirect_to item_path(@item)
   end
 
+  def destroy
+    @review = Review.find(params[:item_id])
+    @item = @review.item
+    if @review.user == current_user
+      @review.destroy
+    end
+    redirect_to item_path(@item)
+  end
+
   private
 
   def review_params
@@ -19,8 +28,8 @@ class ReviewsController < ApplicationController
       :rating,
       :description
     ).merge(
-      item: params[:item_id],
-      user: current_user.id
+      item_id: params[:item_id],
+      user_id: current_user.id
     )
   end
 end
