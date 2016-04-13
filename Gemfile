@@ -34,7 +34,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'valid_attribute'
   gem 'shoulda-matchers', require: false
-  gem 'database_cleaner'
 end
 
 group :development do
@@ -49,6 +48,7 @@ group :test do
   gem 'coveralls', require: false
   gem 'webmock'
   gem 'vcr'
+  gem 'database_cleaner'
 end
 
 group :production do

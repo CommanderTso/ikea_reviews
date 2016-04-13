@@ -11,13 +11,15 @@
 <% else %>
   <ul id="review_list">
     <% @reviews.each_with_index do |review, index| %>
-      <li>
+      <li id="review-<%= index %>">
         Rating: <%= review.rating %> - <%= review.description %> (Review rating: <%= review.net_rating %>)
-        <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png", id: "upvote-#{index}"),
-          votes_upvote_path(review_id: review.id)
+        <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png"),
+          votes_upvote_path(review_id: review.id),
+          id: "upvote-#{index}"
         %>
-        <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_down.png", id: "downvote-#{index}"),
-          votes_downvote_path(review_id: review.id)
+        <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_down.png"),
+          votes_downvote_path(review_id: review.id),
+          id: "downvote-#{index}"
         %>
       </li>
     <% end %>

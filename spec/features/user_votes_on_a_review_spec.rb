@@ -11,39 +11,89 @@ require 'rails_helper'
 # - Feature must use AJAX to avoid page reloads
 
 feature "User votes on a review" do
-  let!(:item) { create(:item_with_3_reviews) }
-  # WE SHOULD CREATE A BUNCH OF VOTES ON THESE REVIEWS
+  before(:each) do
+    user = create(:user)
+    item = create(:item)
+    create(:review, item: item)
+
+    visit root_path
+    click_link "Log in"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_button "Log in"
+
+    visit item_path(item)
+  end
 
   scenario "User upvotes a review", :vcr do
-    visit item_path(item)
+    expect(page).to have_content "We'd love your review of the"
 
-    expect(page).to have_content "Average Review Score: 3.33"
-    expect(page).to have_content "We'd love your review of the #{item.title}!"
+    expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
 
-    find('//img#upvote-0').click
+    click_link("upvote-0")
 
-    expect(page).to have_css("PUT CSS HERE")
+    expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
   end
 
   scenario "User downvotes a review", :vcr do
+    expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
 
+    click_link("downvote-0")
+
+    expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
   end
 
   scenario "User removes their upvote", :vcr do
+    click_link("upvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
 
+    click_link("upvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
   end
 
   scenario "User removes their downvote", :vcr do
+    click_link("downvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
 
+    click_link("downvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
   end
 
-  scenario "User changes their downvote to an upvote", :vcr do
+  scenario "User changes their  to an upvote", :vcr do
+    click_link("downvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
+
+    click_link("upvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
 
   end
 
   scenario "User changes their upvote to an downvote", :vcr do
+    click_link("upvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
 
+    click_link("downvote-0")
+    expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
   end
 
+  scenario "User tries to upvote and isn't logged in", :vcr do
+    item = Item.find_or_create_by(title: "EKTORP")
+
+    click_link "Sign Out"
+    visit item_path(item)
+
+    click_link("upvote-0")
+    expect(page).to have_content "Please sign in to cast your vote!"
+  end
+
+  scenario "User tries to downvote and isn't logged in", :vcr do
+    item = Item.find_or_create_by(title: "EKTORP")
+
+    click_link "Sign Out"
+    visit item_path(item)
+
+    click_link("downvote-0")
+    expect(page).to have_content "Please sign in to cast your vote!"
+  end
 
 end

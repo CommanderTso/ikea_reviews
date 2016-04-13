@@ -1,11 +1,35 @@
 class VotesController < ApplicationController
   def upvote
+    if user_signed_in?
+      do_vote(vote_params, 1)
+    else
+      flash[:error] = "Please sign in to cast your vote!"
+      redirect_to Review.find(vote_params).item
+    end
+  end
+
+  def downvote
+    if user_signed_in?
+      do_vote(vote_params, -1)
+    else
+      flash[:error] = "Please sign in to cast your vote!"
+      redirect_to Review.find(vote_params).item
+    end
+  end
+
+  private
+
+  def do_vote(vote_params, new_vote)
     @review = Review.find(vote_params)
     @user = current_user
 
     @vote = Vote.find_or_create_by(review: @review, user: @user)
 
-    if @vote.score == 1 then @vote.score = 0 else @vote.score = 1 end
+    if @vote.score == new_vote
+       @vote.score = 0
+    else
+      @vote.score = new_vote
+    end
 
     if @vote.save
       flash[:notification] = "Your vote has been cast!"
@@ -13,6 +37,7 @@ class VotesController < ApplicationController
       flash[:error] = @vote.errors.full_messages.join(", ")
     end
     redirect_to @review.item
+
   end
 
   def vote_params
