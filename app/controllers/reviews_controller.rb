@@ -19,8 +19,8 @@ class ReviewsController < ApplicationController
       :rating,
       :description
     ).merge(
-      item: Item.find(params[:item_id]),
-      user: User.find(current_user)
+      item: params[:item_id],
+      user: current_user.id
     )
   end
 end

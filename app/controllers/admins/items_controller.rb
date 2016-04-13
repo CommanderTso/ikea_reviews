@@ -11,4 +11,5 @@ class Admins::ItemsController < AdminsController
       flash[:notice] = "You are not authorized to do that!"
     end
     redirect_to admins_items_path
+  end
 end

@@ -20,7 +20,7 @@
   <%= paginate @reviews %>
 </p>
 
-<% unless current_user.nil? %>
+<% unless current_user.nil? || user_reviewed? %>
   <h4>We'd love your review of the <%= @item.title %>!</h4>
 
   <%= form_for [@item, @review] do |f| %>
