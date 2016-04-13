@@ -63,4 +63,18 @@ feature "admin login" do
     expect(page.current_path).to eq root_path
     expect(page).to have_content "You are not authorized to view that page."
   end
+
+  scenario "non-member tries to access admin portal lists" do
+    visit '/admins/users'
+    expect(page.current_path).to eq root_path
+    expect(page).to have_content "Please sign in!"
+
+    visit '/admins/reviews'
+    expect(page.current_path).to eq root_path
+    expect(page).to have_content "Please sign in!"
+
+    visit '/admins/items'
+    expect(page.current_path).to eq root_path
+    expect(page).to have_content "Please sign in!"
+  end
 end
