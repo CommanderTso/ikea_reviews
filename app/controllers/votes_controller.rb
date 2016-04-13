@@ -25,11 +25,11 @@ class VotesController < ApplicationController
 
     @vote = Vote.find_or_create_by(review: @review, user: @user)
 
-    if new_vote == @vote.score
-      @vote.score = 0
-    else
-      @vote.score = new_vote
-    end
+    @vote.score = if @vote.score == new_vote
+                    0
+                  else
+                    new_vote
+                  end
 
     if @vote.save
       flash[:notification] = "Your vote has been cast!"
