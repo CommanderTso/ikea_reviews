@@ -1,7 +1,7 @@
 <h1><%= @item.title %></h1>
 <h2><%= @item.subtitle %></h2>
 <h2><%= @item.price %></h2>
-<img src="<%= @item.picture_url %>" alt="<%= @item.title %>" />
+<img id="item_picture" src="<%= @item.picture_url %>" alt="<%= @item.title %>" />
 
 <h4><%= @headline %></h4>
 <% if @reviews.empty? %>
@@ -28,4 +28,5 @@
   <%= f.text_area :description %>
 
   <%= f.submit "Submit" %>
+
 <% end %>

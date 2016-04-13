@@ -15,7 +15,6 @@ require 'rails_helper'
 feature "User creates a new Ikea item" do
   scenario "User enters a URL to create a new item", :vcr do
     visit new_item_path
-    expect(page).to have_content("Enter your item here:")
     expect(page).to have_content("Please enter an Ikea URL")
 
     fill_in "URL", with: "http://www.ikea.com/us/en/catalog/products/S99129122/"
@@ -32,7 +31,7 @@ feature "User creates a new Ikea item" do
     click_button "Submit"
 
     expect(page).to have_content "Please enter a valid Ikea product URL!"
-    expect(page).to have_content "Enter your item here:"
+    expect(page).to have_content "Please enter an Ikea URL"
   end
 
   scenario "User enters an item already created, gets sent to existing page", :vcr do
@@ -54,6 +53,6 @@ feature "User creates a new Ikea item" do
     click_button "Submit"
 
     expect(page).to have_content("Please enter a valid Ikea product URL!")
-    expect(page).to have_content("Enter your item here:")
+    expect(page).to have_content("Please enter an Ikea URL")
   end
 end

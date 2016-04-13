@@ -3,9 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>EyeKea</title>
-
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
@@ -16,23 +13,33 @@
       <%= value %>
     <% end %>
 
-    <nav>
-      <ul>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li><a href="/">EyeKea</a></li>
+          <li><a href="/">Items Index</a></li>
+          <li><a href="/items/new">Add Item</a></li>
+        </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <%= link_to "Log in", new_user_session_path %>
         <% if user_signed_in? %>
-          <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
+          <%= link_to 'Edit Profile', edit_user_registration_path %>
+          <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
         <% else %>
-          <li>
-            <%= link_to 'Sign Up', new_user_registration_path %></li>
+          <%= link_to 'Sign Up', new_user_registration_path %>
         <% end %>
-        <li><a href="/">Items Index</a></li>
-        <li><a href="/items/new">Add Item</a></li>
-      </ul>
-    </nav>
+      </div>
+    </div>
+
+    <ul class="menu">
+      <li><input type="search" placeholder="Search"></li>
+      <li><button type="button" class="button">Search</button></li>
+    </ul>
 
     <div class="column">
       <%= yield %>
     </div>
-    
   </body>
 </html>
