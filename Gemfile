@@ -34,6 +34,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'valid_attribute'
   gem 'shoulda-matchers', require: false
+  gem 'database_cleaner'
 end
 
 group :development do

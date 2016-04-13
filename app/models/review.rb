@@ -1,6 +1,7 @@
 class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
+  has_many :votes
 
   validates :rating, presence: true, numericality: true, inclusion: { in: 1..5, message: 'must be between 1-5' }
 
@@ -12,4 +13,8 @@ class Review < ActiveRecord::Base
     ["2 - Bad".freeze, 2],
     ["1 - Awful".freeze, 1]
   ].freeze
+
+  def net_rating
+    self.votes.inject(0) {|sum, vote| sum + vote.score }
+  end
 end

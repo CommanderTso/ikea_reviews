@@ -408,6 +408,7 @@ DEPENDENCIES
   capybara-rails
   carrierwave
   coveralls
+  database_cleaner
   devise
   dotenv-rails
   factory_girl_rails
