@@ -21,9 +21,8 @@ class ReviewsController < ApplicationController
 
   def edit
     @review = Review.find(params[:id])
-    if current_user == @review.user
-      @rating_options = Review::RATING_OPTIONS
-    else
+    @rating_options = Review::RATING_OPTIONS
+    unless current_user == @review.user
       flash[:error] = "You are not authorized to view this page!"
       redirect_to root_path
     end
