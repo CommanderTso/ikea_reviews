@@ -62,8 +62,8 @@ feature "User creates a new review" do
     expect(page).to have_content "3"
     expect(page).to have_content "Man, I love this furniture so much! " \
       "I drink so much coffee here, my kidneys are shot! Ow!"
-      expect(page).to_not have_content "We'd love your review of the #{@item.title}!"
-      expect(page).to have_no_css('#new_review')
+    expect(page).to_not have_content "We'd love your review of the #{@item.title}!"
+    expect(page).to have_no_css('#new_review')
   end
 
   scenario "non-member is unable to submit a review" do
