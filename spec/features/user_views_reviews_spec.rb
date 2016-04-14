@@ -34,8 +34,10 @@ feature "User sees reviews" do
   scenario "User sees order newest to oldest", :vcr do
     visit item_path(@item)
 
-    expect(page).to have_selector("ul#review_list li:nth-child(1)", text: @review_3.description)
-    expect(page).to have_selector("ul#review_list li:nth-child(3)", text: @review_2.description)
-    expect(page).to have_selector("ul#review_list li:nth-child(5)", text: @review_1.description)
+    within("ul#review_list") do
+      expect(page).to have_selector("li:nth-child(1)", text: @review_3.description)
+      expect(page).to have_selector("li:nth-child(3)", text: @review_2.description)
+      expect(page).to have_selector("li:nth-child(5)", text: @review_1.description)
+    end
   end
 end

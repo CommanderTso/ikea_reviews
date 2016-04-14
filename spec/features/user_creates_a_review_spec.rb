@@ -59,8 +59,7 @@ feature "User creates a new review" do
       "I drink so much coffee here, my kidneys are shot! Ow!"
     click_button "Submit"
 
-    expect(page).to have_content "3"
-    expect(page).to have_content "Man, I love this furniture so much! " \
+    expect(page).to have_content "3 - Man, I love this furniture so much! " \
       "I drink so much coffee here, my kidneys are shot! Ow!"
     expect(page).to_not have_content "We'd love your review of the #{@item.title}!"
     expect(page).to have_no_css('#new_review')
