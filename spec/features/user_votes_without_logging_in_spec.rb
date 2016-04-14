@@ -30,11 +30,13 @@ feature "User votes on a review without logging in" do
 
   scenario "User tries to upvote and isn't logged in (with AJAX)", js: true do
     first(".upvote-0").click
+    sleep 1
     expect(page).to have_content "Please sign in to cast your vote!"
   end
 
   scenario "User tries to downvote and isn't logged in (with AJAX)", js: true do
     first(".downvote-0").click
+    sleep 1
     expect(page).to have_content "Please sign in to cast your vote!"
   end
 end
