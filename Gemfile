@@ -25,6 +25,7 @@ gem 'foundation-rails'
 gem 'dotenv-rails'
 gem 'nokogiri'
 gem 'kaminari'
+gem 'vcr'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -48,7 +49,6 @@ end
 group :test do
   gem 'coveralls', require: false
   gem 'webmock'
-  gem 'vcr'
 end
 
 group :production do
