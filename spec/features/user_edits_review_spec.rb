@@ -98,7 +98,7 @@ feature "user edits review" do
     expect(page).to have_no_selector("input[type=submit][value='Edit']")
   end
 
-  scenario "user visits edit path of review he/she didn't edit" do
+  scenario "user visits edit path of review he/she didn't create" do
     visit edit_item_review_path(item, review)
 
     expect(page).to have_content "You are not authorized to view this page!"
