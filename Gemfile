@@ -13,6 +13,7 @@ gem 'fog'
 gem "fog-aws"
 gem 'carrierwave'
 gem 'squeel'
+gem 'rake'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
