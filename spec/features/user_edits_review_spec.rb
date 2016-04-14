@@ -67,6 +67,21 @@ feature "user edits review" do
       "I drink so much coffee here, my kidneys are shot! Ow!"
   end
 
+  scenario "user unsuccessfully edits review" do
+    fill_in "Email", with: "asdf@gmail.com"
+    fill_in "Password", with: "asdfasdf"
+    click_button "Log in"
+
+    visit item_path(item)
+    click_button "Edit"
+    fill_in "Your Review:", with: "Man, I love this furniture so much! " \
+      "I drink so much coffee here, my kidneys are shot! Ow!"
+    click_button "Submit"
+
+    expect(page).to have_content "Rating must be between 1-5"
+    expect(page).to have_content "Edit your review of the #{item.title}"
+  end
+
   scenario "user who didn't write the review can't edit the review" do
     fill_in "Email", with: "pinkpinksopink@gmail.com"
     fill_in "Password", with: "asdfasdf"
@@ -81,5 +96,11 @@ feature "user edits review" do
     visit item_path(item)
 
     expect(page).to have_no_selector("input[type=submit][value='Edit']")
+  end
+
+  scenario "user visits edit path of review he/she didn't edit" do
+    visit edit_item_review_path(item, review)
+
+    expect(page).to have_content "You are not authorized to view this page!"
   end
 end
