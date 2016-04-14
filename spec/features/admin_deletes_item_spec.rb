@@ -39,6 +39,7 @@ feature "admin deletes an item" do
     expect(page).to have_content "HEMNES"
 
     click_button('Delete', match: :first)
-    expect(page).to_not have_content "HEMNES"
+    expect(page).to have_content "HEMNES has been deleted!"
+    expect(page).to have_no_selector("input[type=submit][value='Delete']")
   end
 end
