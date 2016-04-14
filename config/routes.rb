@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "/votes/upvote", to: 'votes#upvote'
   get "/votes/downvote", to: 'votes#downvote'
 
+  resources :categories, only: [:show]
   resources :items, only: [:new, :create, :index, :show] do
     resources :reviews, only: [:create, :index, :update, :delete]
   end

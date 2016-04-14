@@ -40,7 +40,7 @@ feature "admin login" do
     fill_in "Password", with: "123123123"
     click_button "Log in"
 
-    visit '/admins'
+    visit admins_path
 
     expect(page.current_path).to eq root_path
     expect(page).to have_content "You are not authorized to view that page."
@@ -51,29 +51,29 @@ feature "admin login" do
     fill_in "Password", with: "123123123"
     click_button "Log in"
 
-    visit '/admins/users'
+    visit admins_users_path
     expect(page.current_path).to eq root_path
     expect(page).to have_content "You are not authorized to view that page."
 
-    visit '/admins/reviews'
+    visit admins_reviews_path
     expect(page.current_path).to eq root_path
     expect(page).to have_content "You are not authorized to view that page."
 
-    visit '/admins/items'
+    visit admins_items_path
     expect(page.current_path).to eq root_path
     expect(page).to have_content "You are not authorized to view that page."
   end
 
   scenario "non-member tries to access admin portal lists" do
-    visit '/admins/users'
+    visit admins_users_path
     expect(page.current_path).to eq root_path
     expect(page).to have_content "Please sign in!"
 
-    visit '/admins/reviews'
+    visit admins_reviews_path
     expect(page.current_path).to eq root_path
     expect(page).to have_content "Please sign in!"
 
-    visit '/admins/items'
+    visit admins_items_path
     expect(page.current_path).to eq root_path
     expect(page).to have_content "Please sign in!"
   end
