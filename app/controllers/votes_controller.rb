@@ -21,7 +21,7 @@ class VotesController < ApplicationController
     if user_signed_in?
       do_vote(vote_params, 1, true)
     else
-      render json: { 'login_error' => "Please sign in to cast your vote!" }
+      json_please_sign_in
     end
   end
 
@@ -29,14 +29,14 @@ class VotesController < ApplicationController
     if user_signed_in?
       do_vote(vote_params, -1, true)
     else
-      render json: { 'login_error' => "Please sign in to cast your vote!" }
+      json_please_sign_in
     end
   end
 
   private
 
   def json_please_sign_in
-
+    render json: { 'login_error' => "Please sign in to cast your vote!" }
   end
 
   def do_vote(vote_params, new_vote, sendJson = false)
@@ -48,18 +48,18 @@ class VotesController < ApplicationController
     @vote.change_vote(new_vote)
 
     if sendJson == false
-      resolve_with_http(@vote, @review)
+      resolve_with_http(@review)
     else
-      resolve_with_json(@vote, @review)
+      resolve_with_json(@review)
     end
   end
 
-  def resolve_with_http(vote, review)
+  def resolve_with_http(review)
     flash[:notification] = "Your vote has been cast!"
     redirect_to review.item
   end
 
-  def resolve_with_json(vote, review)
+  def resolve_with_json(review)
     render json: {
       'new_score' => Review.find(vote_params).net_rating,
       'review_id' => review.id
