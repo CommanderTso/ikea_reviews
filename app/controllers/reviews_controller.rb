@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_filter :check_editor, only: [:edit]
+  
   def create
     @review = Review.new(review_params)
     @item = Item.find(params[:item_id])
@@ -22,14 +24,6 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:review_id])
-    @item = Item.find(@review.item.id)
-    if current_user == @review.user
-      @rating_options = Review::RATING_OPTIONS
-    else
-      flash[:error] = "You are not authorized to view this page!"
-      redirect_to root_path
-    end
   end
 
   def update
@@ -55,5 +49,16 @@ class ReviewsController < ApplicationController
       item_id: params[:item_id],
       user_id: current_user.id
     )
+  end
+
+  def check_editor
+    @review = Review.find(params[:review_id])
+    @item = Item.find(@review.item.id)
+    if current_user == @review.user
+      @rating_options = Review::RATING_OPTIONS
+    else
+      flash[:error] = "You are not authorized to view this page!"
+      redirect_to root_path
+    end
   end
 end
