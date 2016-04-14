@@ -41,8 +41,8 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @reviews = @item.reviews.order(created_at: :desc).page(params[:page])
     @review = Review.new
+    @reviews = @item.reviews.order(created_at: :desc).page(params[:page])
     @rating_options = Review::RATING_OPTIONS
 
     @headline = set_show_headline(@item, @reviews.count)

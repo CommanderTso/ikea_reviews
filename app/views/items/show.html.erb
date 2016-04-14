@@ -14,8 +14,12 @@
       <li>
         Rating: <%= review.rating %> - <%= review.description %>
         <% if review.user == current_user %>
+        <div class = "divider"/>
+          <%= button_to "Edit", edit_review_path(:review_id => review.id),
+           :class => "button", :method => :get %>
+        </div>
           <div class = "divider"/>
-            <%= button_to "Delete", item_review_path(:item_id => review.id),
+            <%= button_to "Delete", review_path(:item_id => review.id),
             :method => :delete %>
           </div>
         <% end %>

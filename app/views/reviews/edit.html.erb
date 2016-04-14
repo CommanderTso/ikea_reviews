@@ -1,0 +1,11 @@
+<h4>Edit your review of the <%= @item.title %>!</h4>
+
+<%= form_for [@item, @review] do |f| %>
+  <%= f.label :rating, "Rating:" %>
+  <%= f.select :rating, options_for_select(@rating_options) %>
+
+  <%= f.label :description, "Your Review:" %>
+  <%= f.text_area :description %>
+
+  <%= f.submit "Submit" %>
+<% end %>

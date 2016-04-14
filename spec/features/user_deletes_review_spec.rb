@@ -57,6 +57,6 @@ feature "User deletes a review" do
     click_button "Log in"
 
     visit item_path(item.id)
-    expect(page).to have_no_css('.button_to')
+    expect(page).to have_no_selector("input[type=submit][value='Delete']")
   end
 end
