@@ -49,7 +49,6 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'database_cleaner'
-  gem 'poltergeist'
 end
 
 group :production do
