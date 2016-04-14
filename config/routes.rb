@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root "items#index"
   resources :items, only: [:new, :create, :index, :show] do
-    resources :reviews, only: [:create, :update]
+    resources :reviews, only: [:create, :update, :edit, :destroy]
   end
-  resources :reviews, only: [:edit, :destroy]
   resources :admins, only: [:index]
   namespace :admins do
     resources :users, only: [:index, :destroy]
