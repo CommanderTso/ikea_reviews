@@ -6,6 +6,11 @@
   </head>
   <body>
     <h1>Welcome to EyeKea!</h1>
+    <%= form_tag(items_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Items" %>
+    <%= submit_tag "Search", :name => nil %>
+    <% end %>
+
     &#x1F436; &#128065; &#128273; &#128576; <br>
     <h5>The premier review site for Ikea furniture</h5>
     <table class="hover">
@@ -24,8 +29,16 @@
           <% end %>
       </tbody>
     </table>
+
     <p>
       <%= paginate @items %>
+    </p>
+
+    <p>
+      <h3>View by Category:</h3>
+      <% @categories.each do |category| %>
+        <li><%= link_to category.name, category_path(category.id) %></li>
+      <% end %>
     </p>
   </body>
 </html>

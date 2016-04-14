@@ -12,6 +12,7 @@ gem 'devise'
 gem 'fog'
 gem "fog-aws"
 gem 'carrierwave'
+gem 'squeel'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -47,6 +48,7 @@ group :test do
   gem 'coveralls', require: false
   gem 'webmock'
   gem 'vcr'
+  gem 'database_cleaner'
 end
 
 group :production do

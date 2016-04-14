@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "profile photo" do
 
-  let (:user) do
+  let!(:user) do
     User.create(
       email: "asdf@asdf.com",
       password: "asdf1234"
@@ -24,7 +24,6 @@ feature "profile photo" do
   end
 
   scenario "user uploads a profile photo when editing profile" do
-    user
     visit root_path
     click_link "Log in"
     fill_in "Email", with: "asdf@asdf.com"
