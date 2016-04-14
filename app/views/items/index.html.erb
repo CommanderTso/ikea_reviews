@@ -4,15 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Welcome to EyeKea!</title>
   </head>
-  <body>
-    <h1>Welcome to EyeKea!</h1>
-    <%= form_tag(items_path, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search Items" %>
-    <%= submit_tag "Search", :name => nil %>
-    <% end %>
 
-    &#x1F436; &#128065; &#128273; &#128576; <br>
-    <h5>The premier review site for Ikea furniture</h5>
+  <body>
+    <h1 class="text-center" id="greeting">Welcome to EyeKea!</h1>
+    <h5 class="text-center" id="new_banner">The premier review site for Ikea furniture</h5><br>
     <table class="hover">
       <thead>
         <tr>
@@ -29,16 +24,8 @@
           <% end %>
       </tbody>
     </table>
-
     <p>
       <%= paginate @items %>
-    </p>
-
-    <p>
-      <h3>View by Category:</h3>
-      <% @categories.each do |category| %>
-        <li><%= link_to category.name, category_path(category.id) %></li>
-      <% end %>
     </p>
   </body>
 </html>

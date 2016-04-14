@@ -22,3 +22,25 @@
      height:auto;
      display:inline-block;
  }
+
+#greeting {
+  font-family: 'Coming Soon', cursive;
+}
+
+#new_banner {
+  font-family: 'Josefin Slab', serif;
+}
+
+.nav-bar-right a {
+  padding-left: 10px;
+  padding-right: 10px:
+  display: inline;
+}
+
+.pagination {
+  width: auto;
+}
+
+.pagination a {
+  display: inline;
+}
