@@ -16,11 +16,11 @@
         Rating: <%= review.rating %> - <%= review.description %> (Review rating: <%= review.net_rating %>)
         <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png"),
           votes_upvote_path(review_id: review.id),
-          id: "upvote-#{index}"
+          class: "upvote-#{index}"
         %>
         <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_down.png"),
           votes_downvote_path(review_id: review.id),
-          id: "downvote-#{index}"
+          class: "downvote-#{index}"
         %>
       </li>
     <% end %>

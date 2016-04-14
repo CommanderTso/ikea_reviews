@@ -25,75 +25,65 @@ feature "User votes on a review" do
     visit item_path(item)
   end
 
-  scenario "User upvotes a review", :vcr do
+  scenario "User upvotes a review" do
     expect(page).to have_content "We'd love your review of the"
 
     expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
 
-    click_link("upvote-0")
+    first(".upvote-0").click
 
     expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
   end
 
-  scenario "User downvotes a review", :vcr do
+  scenario "User downvotes a review" do
     expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
 
-    click_link("downvote-0")
+    first(".downvote-0").click
 
     expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
   end
 
-  scenario "User removes their upvote", :vcr do
-    click_link("upvote-0")
+  scenario "User removes their upvote" do
+    first(".upvote-0").click
     expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
 
-    click_link("upvote-0")
-    expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
-  end
-
-  scenario "User removes their downvote", :vcr do
-    click_link("downvote-0")
-    expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
-
-    click_link("downvote-0")
+    first(".upvote-0").click
     expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
   end
 
-  scenario "User changes their  to an upvote", :vcr do
-    click_link("downvote-0")
+  scenario "User removes their downvote" do
+    first(".downvote-0").click
     expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
 
-    click_link("upvote-0")
+    first(".downvote-0").click
+    expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
+  end
+
+  scenario "User changes their downvote to an upvote" do
+    first(".downvote-0").click
+    expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
+
+    first(".upvote-0").click
     expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
 
   end
 
-  scenario "User changes their upvote to an downvote", :vcr do
-    click_link("upvote-0")
+  scenario "User changes their upvote to an downvote" do
+    first(".upvote-0").click
     expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
 
-    click_link("downvote-0")
+    first(".downvote-0").click
     expect(page.find('li#review-0')).to have_content("(Review rating: -1)")
   end
 
-  scenario "User tries to upvote and isn't logged in", :vcr do
-    item = Item.find_or_create_by(title: "EKTORP")
+  scenario "User upvotes with AJAX enabled", js: true do
+    expect(page).to have_content "We'd love your review of the"
 
-    click_link "Sign Out"
-    visit item_path(item)
+    expect_no_page_reload do
+      expect(page.find('li#review-0')).to have_content("(Review rating: 0)")
+      first(".upvote-0").click
 
-    click_link("upvote-0")
-    expect(page).to have_content "Please sign in to cast your vote!"
+      expect(page.find('li#review-0')).to have_content("(Review rating: 1)")
+    end
   end
-
-  scenario "User tries to downvote and isn't logged in", :vcr do
-    item = Item.find_or_create_by(title: "EKTORP")
-
-    click_link "Sign Out"
-    visit item_path(item)
-
-    click_link("downvote-0")
-    expect(page).to have_content "Please sign in to cast your vote!"
-  end
-
 end
