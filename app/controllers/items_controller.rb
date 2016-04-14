@@ -52,7 +52,6 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:item_url)
   end
 
-
   private
 
   def user_reviewed?
@@ -117,5 +116,4 @@ class ItemsController < ApplicationController
       redirect_to new_user_registration_path
     end
   end
-
 end

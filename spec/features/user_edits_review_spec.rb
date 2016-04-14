@@ -50,22 +50,22 @@ feature "user edits review" do
   end
 
   scenario "user successfully edits review" do
-    fill_in "Email", with: "asdf@gmail.com"
-    fill_in "Password", with: "asdfasdf"
-    click_button "Log in"
+  fill_in "Email", with: "asdf@gmail.com"
+  fill_in "Password", with: "asdfasdf"
+  click_button "Log in"
 
-    visit item_path(item)
-    click_button "Edit"
-    select "3", from: "Rating:"
-    fill_in "Your Review:", with: "Man, I love this furniture so much! " \
-      "I drink so much coffee here, my kidneys are shot! Ow!"
-    click_button "Submit"
+  visit item_path(item)
+  click_button "Edit"
+  select "3", from: "Rating:"
+  fill_in "Your Review:", with: "Man, I love this furniture so much! " \
+    "I drink so much coffee here, my kidneys are shot! Ow!"
+  click_button "Submit"
 
-    expect(page).to have_content "Review updated successfully!"
-    expect(page.current_path).to eq item_path(item)
-    expect(page).to have_content "Man, I love this furniture so much! " \
-      "I drink so much coffee here, my kidneys are shot! Ow!"
-    end
+  expect(page).to have_content "Review updated successfully!"
+  expect(page.current_path).to eq item_path(item)
+  expect(page).to have_content "Man, I love this furniture so much! " \
+    "I drink so much coffee here, my kidneys are shot! Ow!"
+  end
 
   scenario "user who didn't write the review can't edit the review" do
     fill_in "Email", with: "pinkpinksopink@gmail.com"
