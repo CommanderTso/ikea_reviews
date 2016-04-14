@@ -14,14 +14,6 @@ gem "fog-aws"
 gem 'carrierwave'
 gem 'squeel'
 gem 'rake'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
->>>>>>> master
 gem 'foundation-rails'
 gem 'dotenv-rails'
 gem 'nokogiri'
