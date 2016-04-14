@@ -1,6 +1,5 @@
 require 'coveralls'
 require File.expand_path("../../config/environment", __FILE__)
-
 Coveralls.wear!('rails')
 
 RSpec.configure do |config|
@@ -15,14 +14,9 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
+  def expect_no_page_reload
+    page.evaluate_script "$(document.body).addClass('not-reloaded')"
+    yield
+    expect(page).to have_selector("body.not-reloaded")
   end
 end

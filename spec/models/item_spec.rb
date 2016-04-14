@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe Item do
   let!(:item) { create(:item_with_3_reviews) }
 
