@@ -18,12 +18,22 @@ feature "User votes on a review without logging in" do
     visit item_path(item)
   end
 
-  scenario "User tries to upvote and isn't logged in" do
+  scenario "User tries to upvote and isn't logged in (no AJAX)" do
     first(".upvote-0").click
     expect(page).to have_content "Please sign in to cast your vote!"
   end
 
-  scenario "User tries to downvote and isn't logged in" do
+  scenario "User tries to downvote and isn't logged in (no AJAX)" do
+    first(".downvote-0").click
+    expect(page).to have_content "Please sign in to cast your vote!"
+  end
+
+  scenario "User tries to upvote and isn't logged in (with AJAX)", js: true do
+    first(".upvote-0").click
+    expect(page).to have_content "Please sign in to cast your vote!"
+  end
+
+  scenario "User tries to downvote and isn't logged in (with AJAX)", js: true do
     first(".downvote-0").click
     expect(page).to have_content "Please sign in to cast your vote!"
   end

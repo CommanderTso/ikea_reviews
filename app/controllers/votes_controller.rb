@@ -17,26 +17,53 @@ class VotesController < ApplicationController
     end
   end
 
+  def ajax_upvote
+    if user_signed_in?
+      do_vote(vote_params, 1, true)
+    else
+      render json: { 'login_error' => "Please sign in to cast your vote!" }
+    end
+  end
+
+  def ajax_downvote
+    if user_signed_in?
+      do_vote(vote_params, -1, true)
+    else
+      render json: { 'login_error' => "Please sign in to cast your vote!" }
+    end
+  end
+
   private
 
-  def do_vote(vote_params, new_vote)
+  def json_please_sign_in
+
+  end
+
+  def do_vote(vote_params, new_vote, sendJson = false)
     @review = Review.find(vote_params)
     @user = current_user
 
     @vote = Vote.find_or_create_by(review: @review, user: @user)
 
-    @vote.score = if @vote.score == new_vote
-                    0
-                  else
-                    new_vote
-                  end
+    @vote.change_vote(new_vote)
 
-    if @vote.save
-      flash[:notification] = "Your vote has been cast!"
+    if sendJson == false
+      resolve_with_http(@vote, @review)
     else
-      flash[:error] = @vote.errors.full_messages.join(", ")
+      resolve_with_json(@vote, @review)
     end
-    redirect_to @review.item
+  end
+
+  def resolve_with_http(vote, review)
+    flash[:notification] = "Your vote has been cast!"
+    redirect_to review.item
+  end
+
+  def resolve_with_json(vote, review)
+    render json: {
+      'new_score' => Review.find(vote_params).net_rating,
+      'review_id' => review.id
+    }
   end
 
   def vote_params

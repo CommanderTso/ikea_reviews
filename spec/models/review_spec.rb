@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe Review do
   describe "#net_rating" do
     it "returns the net of all the review's up and down votes" do
