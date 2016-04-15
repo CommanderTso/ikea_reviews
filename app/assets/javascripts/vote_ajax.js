@@ -4,7 +4,6 @@ $(document).ready(function() {
 
     var request = $.ajax({
 			method: 'GET',
-      dataType:'json',
 			url: $(this).attr('ajax_path')
 		});
 
