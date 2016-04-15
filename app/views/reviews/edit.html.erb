@@ -1,4 +1,5 @@
-<h4 id="greeting">Edit your review of the <%= @item.title %>!</h4>
+<br>
+<h2 id="greeting">Edit your review of the <%= @item.title %>!</h2>
 
 <%= form_for [@item, @review] do |f| %>
   <%= f.label :rating, "Rating:" %>
@@ -7,5 +8,5 @@
   <%= f.label :description, "Your Review:" %>
   <%= f.text_area :description %>
 
-  <%= f.submit "Submit" %>
+  <%= f.submit "Submit", class: "button"  %>
 <% end %>
