@@ -1,4 +1,4 @@
-<h4>Edit your review of the <%= @item.title %>!</h4>
+<h4 id="greeting">Edit your review of the <%= @item.title %>!</h4>
 
 <%= form_for [@item, @review] do |f| %>
   <%= f.label :rating, "Rating:" %>
