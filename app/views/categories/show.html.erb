@@ -1,0 +1,7 @@
+<h3>Category Page for <%= @category.name %></h3>
+
+<ul>
+  <% @items.each do |item| %>
+    <li><%= link_to item.title, item_path(item.id) %></li>
+  <% end %>
+</ul>

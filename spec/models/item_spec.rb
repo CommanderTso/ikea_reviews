@@ -1,9 +1,11 @@
+require 'rails_helper'
+
 describe Item do
   let!(:item) { create(:item_with_3_reviews) }
 
   describe "#price" do
-    it "returns the price with two decimal places of precision" do
-      expect(item.price).to eq("149.00")
+    it "returns the price with a '$' and two decimal places of precision" do
+      expect(item.price).to eq("$149.00")
     end
   end
 
