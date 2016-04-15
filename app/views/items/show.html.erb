@@ -25,22 +25,21 @@
           </div>
         <% end %>
         <ul>
-          <li> Description: <%= review.description %> </li>
-          <li> Posted by: <%= review.user.email %> </li>
-          <li class="review-rating" id="review-rating-<%= review.id %>">&#128273; : <%= review.net_rating %></li>
-            <li>
-              Vote on this review:
-              <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png"),
-                votes_upvote_path(review_id: review.id),
-                class: "vote_change upvote-#{index}",
-                ajax_path: ajax_upvote_path(review_id: review.id)
-              %>
-              <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_down.png"),
-                votes_downvote_path(review_id: review.id),
-                class: "vote_change downvote-#{index}",
-                ajax_path: ajax_downvote_path(review_id: review.id)
-              %>
-            </li>
+          <li>Description: <%= review.description %></li>
+          <li class="review-rating" id="review-rating-<%= review.id %>">🔑 : <%= review.net_rating %></li>
+          <li>
+            Vote on this review:
+            <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png"),
+              votes_upvote_path(review_id: review.id),
+              class: "vote_change upvote-#{index}",
+              ajax_path: ajax_upvote_path(review_id: review.id)
+            %>
+            <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_down.png"),
+              votes_downvote_path(review_id: review.id),
+              class: "vote_change downvote-#{index}",
+              ajax_path: ajax_downvote_path(review_id: review.id)
+            %>
+          </li>
         </ul>
       <% end %>
   </ul>
