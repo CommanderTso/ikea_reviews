@@ -14,14 +14,14 @@
       <li id="review-<%= index %>">
         Rating: <%= review.rating %>
         <% if review.user == current_user %>
-        <div class = "divider"/>
+        <div class = "divider" style="float: right; width: 50px">
           <%= button_to "Edit", edit_item_review_path(@item, review),
             class: "button", method: :get
           %>
         </div>
-        <div class = "divider"/>
+        <div class = "divider" style="float: right; width: 70px">
             <%= button_to "Delete", item_review_path(@item, review),
-              method: :delete
+              method: :delete, class: "alert button"
             %>
         </div>
         <% end %>
