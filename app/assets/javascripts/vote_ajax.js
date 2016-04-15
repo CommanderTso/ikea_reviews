@@ -3,7 +3,8 @@ $(document).ready(function() {
     event.preventDefault();
 
     var request = $.ajax({
-			method: 'POST',
+			method: 'GET',
+      dataType:'json',
 			url: $(this).attr('ajax_path')
 		});
 
