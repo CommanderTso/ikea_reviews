@@ -14,25 +14,35 @@
     <% @reviews.each_with_index do |review, index| %>
       <li id="review-<%= index %>">
         Rating: <%= review.rating %>
+        <% if review.user == current_user %>
+        <div class = "divider"/>
+          <%= button_to "Edit", edit_item_review_path(@item, review),
+           class: "button", method: :get %>
+        </div>
+          <div class = "divider"/>
+            <%= button_to "Delete", item_review_path(@item, review),
+            method: :delete %>
+          </div>
+        <% end %>
         <ul>
-          <li>Description: <%= review.description %></li>
-          <li class="review-rating" id="review-rating-<%= review.id %>">Review rating: <%= review.net_rating %></li>
-          <li>
-            Vote on this review:
-            <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png"),
-              votes_upvote_path(review_id: review.id),
-              class: "vote_change upvote-#{index}",
-              ajax_path: ajax_upvote_path(review_id: review.id)
-            %>
-            <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_down.png"),
-              votes_downvote_path(review_id: review.id),
-              class: "vote_change downvote-#{index}",
-              ajax_path: ajax_downvote_path(review_id: review.id)
-            %>
-          </li>
+          <li> Description: <%= review.description %> </li>
+          <li> Posted by: <%= review.user.email %> </li>
+          <li class="review-rating" id="review-rating-<%= review.id %>">&#128273; : <%= review.net_rating %></li>
+            <li>
+              Vote on this review:
+              <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png"),
+                votes_upvote_path(review_id: review.id),
+                class: "vote_change upvote-#{index}",
+                ajax_path: ajax_upvote_path(review_id: review.id)
+              %>
+              <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_down.png"),
+                votes_downvote_path(review_id: review.id),
+                class: "vote_change downvote-#{index}",
+                ajax_path: ajax_downvote_path(review_id: review.id)
+              %>
+            </li>
         </ul>
-      </li>
-    <% end %>
+      <% end %>
   </ul>
 <% end %>
 
@@ -40,15 +50,17 @@
   <%= paginate @reviews %>
 </p>
 
-<h4>We'd love your review of the <%= @item.title %>!</h4>
+<% unless current_user.nil? || user_reviewed? %>
+  <h4>We'd love your review of the <%= @item.title %>!</h4>
 
-<%= form_for [@item, @review] do |f| %>
-  <%= f.label :rating, "Rating:" %>
-  <%= f.select :rating, options_for_select(@rating_options) %>
+  <%= form_for [@item, @review] do |f| %>
+    <%= f.label :rating, "Rating:" %>
+    <%= f.select :rating, options_for_select(@rating_options) %>
 
-  <%= f.label :description, "Your Review:" %>
-  <%= f.text_area :description %>
+    <%= f.label :description, "Your Review:" %>
+    <%= f.text_area :description %>
 
-  <%= f.submit "Submit" %>
+    <%= f.submit "Submit" %>
+  <% end %>
 <% end %>
 </script>
