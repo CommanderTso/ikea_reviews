@@ -13,13 +13,7 @@ gem 'fog'
 gem "fog-aws"
 gem 'carrierwave'
 gem 'squeel'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
+gem 'rake'
 gem 'foundation-rails'
 gem 'dotenv-rails'
 gem 'nokogiri'
@@ -49,6 +43,7 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'database_cleaner'
+  gem 'poltergeist'
 end
 
 group :production do

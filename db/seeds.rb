@@ -24,9 +24,19 @@ unless item_2.present?
   )
 end
 
-user_1 = User.find_by(email: "abc@gmail.com")
+user_1 = User.find_by(email: "abc@abc.com")
 unless user_1.present?
-  user_1 = User.create(email: "abc@gmail.com", password: "12345678", password_confirmation: "12345678")
+  user_1 = User.create(email: "abc@abc.com", password: "123123123", password_confirmation: "123123123")
+end
+
+user_2 = User.find_by(email: "abcd@gmail.com")
+unless user_2.present?
+  user_1 = User.create(
+    email: "abcd@gmail.com",
+    password: "123123123",
+    password_confirmation: "123123123",
+    role: "admin"
+  )
 end
 
 7.times do
