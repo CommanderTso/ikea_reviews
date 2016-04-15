@@ -3,7 +3,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     var request = $.ajax({
-			method: 'GET',
+			method: 'POST',
 			url: $(this).attr('ajax_path')
 		});
 
