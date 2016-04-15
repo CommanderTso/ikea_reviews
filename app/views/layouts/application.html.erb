@@ -3,6 +3,7 @@
 <head>
   <title>Ikea Reviews</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application', :application %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -30,6 +31,5 @@
 
 <%= yield %>
 
-<%= javascript_include_tag 'application', :application %>
 </body>
 </html>
