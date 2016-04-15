@@ -1,46 +1,18 @@
 require 'rails_helper'
 
 feature "user edits review" do
-  let!(:user) do
-    User.create(
-      email: "asdf@gmail.com",
-      password: "asdfasdf"
-    )
-  end
-
-  let!(:user2) do
-    User.create(
-      email: "pinkpinksopink@gmail.com",
-      password: "asdfasdf"
-    )
-  end
-
-  let!(:item) do
-    Item.create(
-      item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
-      title: "HEMNES",
-      subtitle: "Coffee table, black-brown",
-      picture_url: "http://www.ikea.com/us/en/images/products/hemnes-coffee-table-brown__0104030_PE250678_S4.JPG",
-      price: "139.00"
-    )
-  end
-
-  let!(:review) do
-    Review.create(
-      rating: 5,
-      description: "Best I ever had.",
-      item: item,
-      user: user
-    )
-  end
+  let!(:user) { create(:user) }
+  let!(:user_2) { create(:user, email: "asdf@gmail.com") }
+  let!(:item) { create(:item) }
+  let!(:review) { create(:review, item: item, user: user) }
 
   before(:each) do
     visit new_user_session_path
   end
 
   scenario "user views edit page of review" do
-    fill_in "Email", with: "asdf@gmail.com"
-    fill_in "Password", with: "asdfasdf"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
     click_button "Log in"
 
     visit item_path(item)
@@ -50,32 +22,29 @@ feature "user edits review" do
   end
 
   scenario "user successfully edits review" do
-    fill_in "Email", with: "asdf@gmail.com"
-    fill_in "Password", with: "asdfasdf"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
     click_button "Log in"
 
     visit item_path(item)
     click_button "Edit"
     select "3", from: "Rating:"
-    fill_in "Your Review:", with: "Man, I love this furniture so much! " \
-      "I drink so much coffee here, my kidneys are shot! Ow!"
+    fill_in "Your Review:", with: "Pizzzzzzza"
     click_button "Submit"
 
     expect(page).to have_content "Review updated successfully!"
     expect(page.current_path).to eq item_path(item)
-    expect(page).to have_content "Man, I love this furniture so much! " \
-      "I drink so much coffee here, my kidneys are shot! Ow!"
+    expect(page).to have_content "Pizzzzzzza"
   end
 
   scenario "user unsuccessfully edits review" do
-    fill_in "Email", with: "asdf@gmail.com"
-    fill_in "Password", with: "asdfasdf"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
     click_button "Log in"
 
     visit item_path(item)
     click_button "Edit"
-    fill_in "Your Review:", with: "Man, I love this furniture so much! " \
-      "I drink so much coffee here, my kidneys are shot! Ow!"
+    fill_in "Your Review:", with: "Pizzzzzzza"
     click_button "Submit"
 
     expect(page).to have_content "Rating must be between 1-5"
@@ -83,8 +52,8 @@ feature "user edits review" do
   end
 
   scenario "user who didn't write the review can't edit the review" do
-    fill_in "Email", with: "pinkpinksopink@gmail.com"
-    fill_in "Password", with: "asdfasdf"
+    fill_in "Email", with: user_2.email
+    fill_in "Password", with: user_2.password
     click_button "Log in"
 
     visit item_path(item)

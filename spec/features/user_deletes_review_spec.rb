@@ -1,64 +1,37 @@
 require 'rails_helper'
 
 feature "User deletes a review" do
-  let!(:user) do
-    User.create(
-      email: "asdf@asdf.com",
-      password: "asdf1234"
-    )
-  end
+  let!(:user) { create(:user) }
+  let!(:user_2) { create(:user, email: "asdf@gmail.com") }
+  let!(:item) { create(:item) }
+  let!(:review) { create(:review, item: item, user: user) }
 
-  let!(:user2) do
-    User.create(
-      email: "pinkpinksopink@gmail.com",
-      password: "31231231213"
-    )
-  end
-
-  let!(:item1) do
-    Item.create(
-      item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
-      title: "HEMNES",
-      subtitle: "Coffee table, black-brown",
-      picture_url: "http://www.ikea.com/us/en/images/products/hemnes-coffee-table-brown__0104030_PE250678_S4.JPG",
-      price: "139.00"
-    )
-  end
-
-  let!(:review) do
-    Review.create(
-      rating: 5,
-      description: "Best I ever had.",
-      item: item1,
-      user: user
-    )
-  end
-  
   before(:each) do
     visit new_user_session_path
   end
 
   scenario "User successfully deletes a review", :vcr do
-    fill_in "Email", with: "asdf@asdf.com"
-    fill_in "Password", with: "asdf1234"
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
     click_button "Log in"
 
     visit item_path(item.id)
-    expect(page).to have_content "Rating: 5 - Best I ever had."
-    expect(page).to have_content "Description: Best I ever had."
+    expect(page).to have_content "Rating: #{review.rating}"
+    expect(page).to have_content "Description: #{review.description}"
 
     click_button('Delete', match: :first)
-    expect(page).to_not have_content "Rating: 5"
-    expect(page).to_not have_content "Description: Best I ever had."
+    expect(page).to_not have_content "Rating: #{review.rating}"
+    expect(page).to_not have_content "Description: #{review.description}"
   end
 
   scenario "User can only delete his/her own review" do
-    visit new_user_session_path
-    fill_in "Email", with: "pinkpinksopink@gmail.com"
-    fill_in "Password", with: "31231231213"
+    fill_in "Email", with: user_2.email
+    fill_in "Password", with: user_2.password
     click_button "Log in"
 
     visit item_path(item.id)
+    expect(page).to have_content "Rating: #{review.rating}"
+    expect(page).to have_content "Description: #{review.description}"
     expect(page).to have_no_selector("input[type=submit][value='Delete']")
   end
 end

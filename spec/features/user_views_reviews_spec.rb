@@ -9,17 +9,18 @@ require 'rails_helper'
 # - Page displays reviews, sorted newest to oldest
 
 feature "User sees reviews" do
-  before(:each) do
-    @item = create(:item_with_3_reviews)
-    @review_1 = @item.reviews.first
-    @review_2 = @item.reviews.second
-    @review_3 = @item.reviews.third
-  end
+  let!(:user) { create(:user) }
+  let!(:user_2) { create(:user, email: "asdf@gmail.com") }
+  let!(:user_3) { create(:user, email: "fdsa@gmail.com") }
+  let!(:item) { create(:item) }
+  let!(:review_1) { create(:review, item: item, user: user) }
+  let!(:review_2) { create(:review, item: item, user: user_2) }
+  let!(:review_3) { create(:review, item: item, user: user_3) }
 
   scenario "User sees average review score", :vcr do
-    visit item_path(@item)
+    visit item_path(item)
 
-    expect(page).to have_content "Average Review Score: 3.33"
+    expect(page).to have_content "Average Review Score: 3.0"
   end
 
   scenario "User visits item show page to see reviews, sees page numbers for additional reviews", :vcr do
@@ -32,12 +33,12 @@ feature "User sees reviews" do
   end
 
   scenario "User sees order newest to oldest", :vcr do
-    visit item_path(@item)
+    visit item_path(item)
 
     within("ul#review_list") do
-      expect(page).to have_selector("li:nth-child(1)", text: @review_3.description)
-      expect(page).to have_selector("li:nth-child(3)", text: @review_2.description)
-      expect(page).to have_selector("li:nth-child(5)", text: @review_1.description)
+      expect(page).to have_selector("#review-0", text: review_3.description)
+      expect(page).to have_selector("#review-1", text: review_2.description)
+      expect(page).to have_selector("#review-2", text: review_1.description)
     end
   end
 end

@@ -28,7 +28,6 @@
           <li> Description: <%= review.description %> </li>
           <li> Posted by: <%= review.user.email %> </li>
           <li class="review-rating" id="review-rating-<%= review.id %>">Review rating: <%= review.net_rating %></li>
-          <% unless !user_signed_in? %>
             <li>
               Vote on this review:
               <%= link_to image_tag("https://s3.amazonaws.com/ikea-reviews/uploads/votes/thumbs_up.png"),
@@ -42,7 +41,6 @@
                 ajax_path: ajax_downvote_path(review_id: review.id)
               %>
             </li>
-          <% end %>
         </ul>
       <% end %>
   </ul>
