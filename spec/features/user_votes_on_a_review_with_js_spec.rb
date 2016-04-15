@@ -13,7 +13,7 @@ feature "User votes on a review (with AJAX)" do
     visit item_path(item)
   end
 
-  xscenario "User upvotes with AJAX enabled", js: true do
+  scenario "User upvotes with AJAX enabled", js: true do
 
     expect_no_page_reload do
       expect(page).to have_content "We'd love your review of the"
@@ -24,7 +24,7 @@ feature "User votes on a review (with AJAX)" do
     end
   end
 
-  xscenario "User downvotes a review", js: true do
+  scenario "User downvotes a review", js: true do
     expect_no_page_reload do
       expect(page).to have_content("Review rating: 0")
       first(".downvote-0").click
@@ -33,7 +33,7 @@ feature "User votes on a review (with AJAX)" do
     end
   end
 
-  xscenario "User removes their upvote", js: true do
+  scenario "User removes their upvote", js: true do
     expect_no_page_reload do
       first(".upvote-0").click
       expect(page).to have_content("Review rating: 1")
@@ -43,7 +43,7 @@ feature "User votes on a review (with AJAX)" do
     end
   end
 
-  xscenario "User removes their downvote", js: true do
+  scenario "User removes their downvote", js: true do
     expect_no_page_reload do
       first(".downvote-0").click
       expect(page).to have_content("Review rating: -1")
@@ -53,7 +53,7 @@ feature "User votes on a review (with AJAX)" do
     end
   end
 
-  xscenario "User changes their downvote to an upvote", js: true do
+  scenario "User changes their downvote to an upvote", js: true do
     expect_no_page_reload do
       first(".downvote-0").click
       expect(page).to have_content("Review rating: -1")
@@ -63,7 +63,7 @@ feature "User votes on a review (with AJAX)" do
     end
   end
 
-  xscenario "User changes their upvote to an downvote", js: true do
+  scenario "User changes their upvote to an downvote", js: true do
     expect_no_page_reload do
       first(".upvote-0").click
       expect(page).to have_content("Review rating: 1")
