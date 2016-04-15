@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users,
-    :controllers => { :registrations => "devise/custom/registrations" }
+    :controllers => { registrations: "devise/custom/registrations" }
   root "items#index"
   get "/votes/upvote", to: 'votes#upvote'
   get "/votes/downvote", to: 'votes#downvote'
