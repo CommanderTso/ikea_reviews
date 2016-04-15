@@ -4,34 +4,28 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Welcome to EyeKea!</title>
   </head>
+
   <body>
-    <h1>Welcome to EyeKea!</h1>
-    <%= form_tag(items_path, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search Items" %>
-    <%= submit_tag "Search", :name => nil %>
-    <% end %>
-
-    &#x1F436; &#128065; &#128273; &#128576; <br>
-
-    <ul>
-      <% @items.each do |item| %>
-        <li><%= link_to item.title, item_path(item) %></li>
-      <% end %>
-    </ul>
-
-    <p>
-      <%= link_to "Add a new item", new_item_path %>
-    </p>
-
+    <h1 class="text-center" id="greeting">Welcome to EyeKea!</h1>
+    <h5 class="text-center" id="greeting">The premier review site for Ikea furniture</h5><br>
+    <table class="hover">
+      <thead>
+        <tr>
+          <th width="150">Ikea Item</th>
+          <th width="200">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @items.each do |item| %>
+          <tr>
+          <td><%= link_to item.title, item_path(item) %></td>
+          <td><%= item.subtitle %></td>
+        </tr>
+          <% end %>
+      </tbody>
+    </table>
     <p>
       <%= paginate @items %>
-    </p>
-
-    <p>
-      <h3>View by Category:</h3>
-      <% @categories.each do |category| %>
-        <li><%= link_to category.name, category_path(category.id) %></li>
-      <% end %>
     </p>
   </body>
 </html>

@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     request.done(function(data) {
       if ('new_score' in data) {
-        $('li#review-rating-' + data.review_id).text('🔑 : ' + data.new_score);
+        $('li#review-rating-' + data.review_id).text('Review rating: ' + data.new_score);
       } else {
         if ($('div.flash_message').text != data.login_error) {
            $('div.flash_message').text(data.login_error)

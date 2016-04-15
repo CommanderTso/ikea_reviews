@@ -11,8 +11,6 @@ class ItemsController < ApplicationController
     else
       @items = Item.search(params[:search]).order(:title).page(params[:page])
     end
-
-    @categories = Category.all
   end
 
   def new

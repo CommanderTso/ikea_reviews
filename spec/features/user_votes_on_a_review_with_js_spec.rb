@@ -17,59 +17,59 @@ feature "User votes on a review (with AJAX)" do
 
     expect_no_page_reload do
       expect(page).to have_content "We'd love your review of the"
-      expect(page).to have_content("🔑 : 0")
+      expect(page).to have_content("Review rating: 0")
       first(".upvote-0").click
 
-      expect(page).to have_content("🔑 : 1")
+      expect(page).to have_content("Review rating: 1")
     end
   end
 
   scenario "User downvotes a review", js: true do
     expect_no_page_reload do
-      expect(page).to have_content("🔑 : 0")
+      expect(page).to have_content("Review rating: 0")
       first(".downvote-0").click
 
-      expect(page).to have_content("🔑 : -1")
+      expect(page).to have_content("Review rating: -1")
     end
   end
 
   scenario "User removes their upvote", js: true do
     expect_no_page_reload do
       first(".upvote-0").click
-      expect(page).to have_content("🔑 : 1")
+      expect(page).to have_content("Review rating: 1")
 
       first(".upvote-0").click
-      expect(page).to have_content("🔑 : 0")
+      expect(page).to have_content("Review rating: 0")
     end
   end
 
   scenario "User removes their downvote", js: true do
     expect_no_page_reload do
       first(".downvote-0").click
-      expect(page).to have_content("🔑 : -1")
+      expect(page).to have_content("Review rating: -1")
 
       first(".downvote-0").click
-      expect(page).to have_content("🔑 : 0")
+      expect(page).to have_content("Review rating: 0")
     end
   end
 
   scenario "User changes their downvote to an upvote", js: true do
     expect_no_page_reload do
       first(".downvote-0").click
-      expect(page).to have_content("🔑 : -1")
+      expect(page).to have_content("Review rating: -1")
 
       first(".upvote-0").click
-      expect(page).to have_content("🔑 : 1")
+      expect(page).to have_content("Review rating: 1")
     end
   end
 
   scenario "User changes their upvote to an downvote", js: true do
     expect_no_page_reload do
       first(".upvote-0").click
-      expect(page).to have_content("🔑 : 1")
+      expect(page).to have_content("Review rating: 1")
 
       first(".downvote-0").click
-      expect(page).to have_content("🔑 : -1")
+      expect(page).to have_content("Review rating: -1")
     end
   end
 end
