@@ -42,17 +42,17 @@ feature "User views index page to see items" do
 
     expect(page).to have_content "Welcome to EyeKea!"
     expect(page).to have_content "The premier review site for Ikea furniture"
-    expect(page).to have_content @item2.title
-    expect(page).to have_content @item1.title
+    expect(page).to have_content item2.title
+    expect(page).to have_content item1.title
   end
 
   scenario "User visits '/items', sees list of items & link to add more" do
     visit items_path
 
     expect(page).to have_content "Welcome to EyeKea!"
-    expect(page).to have_link @item1.title
-    expect(page).to have_link @item2.title
-    expect(page).to have_link "Add Item"
+    expect(page).to have_link item1.title
+    expect(page).to have_link item2.title
+    expect(page).to have_link "Add an Item"
   end
 
   scenario "User visits '/items', sees page numbers for additional items", :vcr do
@@ -76,15 +76,16 @@ feature "User views index page to see items" do
 
     click_link item1.title
 
-    expect(page).to have_content @item1.title
-    expect(page).to have_content @item1.subtitle
-    expect(page).to have_xpath("/html/body/div/img[@src='#{@item1.picture_url}']")
+    expect(page).to have_content item1.title
+    expect(page).to have_content item1.subtitle
+    # binding.pry
+    expect(page).to have_xpath("/html/body/div/img[@src='#{item1.picture_url}']")
   end
 
   scenario "Clicking Add Item takes you the user to the add item page" do
     visit items_path
 
-    click_link "Add Item"
+    click_link "Add an Item"
 
     expect(page).to have_content "Please enter an Ikea URL"
   end

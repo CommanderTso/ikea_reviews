@@ -6,6 +6,7 @@ feature "admin deletes an item" do
     admin = create(:admin)
 
     visit root_path
+
     click_link "Log in"
 
     fill_in "Email", with: admin.email

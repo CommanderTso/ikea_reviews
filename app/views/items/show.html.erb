@@ -4,7 +4,7 @@
 <h5 id="greeting"><%= @item.price %></h5>
 <img id="item_picture" src="<%= @item.picture_url %>" alt="<%= @item.title %>" />
 
-
+<div style="float:right">
 <h4 id="greeting"><%= @headline %></h4>
 <% if @reviews.empty? %>
   <p id="greeting">No reviews yet!</p>
@@ -14,7 +14,7 @@
       <li id="review-<%= index %>">
         Rating: <%= review.rating %>
         <ul>
-          <li>Description: <%= review.description %></li>
+          <li style="white-space:pre-wrap; width:60ex">Description: <%= review.description %></li>
           <li class="review-rating" id="review-rating-<%= review.id %>">Review rating: <%= review.net_rating %></li>
           <li>
             Vote on this review:
@@ -36,7 +36,7 @@
 <% end %>
 
   <%= paginate @reviews %>
-
+</div>
 <div style="float:left">
 <h4 id="greeting">We'd love your review of the <%= @item.title %>!</h4>
 

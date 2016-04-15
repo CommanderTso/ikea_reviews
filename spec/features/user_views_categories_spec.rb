@@ -18,7 +18,7 @@ feature "Site has a category attached to each item" do
   scenario "User can click a link to view a category's items", :vcr do
     visit root_path
 
-    expect(page).to have_content "View by Category:"
+    expect(page).to have_content "View by Category"
 
     click_link "Living room"
 
@@ -39,7 +39,8 @@ feature "Site has a category attached to each item" do
 
     expect(page).to have_link "Living room"
 
-    click_link "Living room"
+    click_link("Living room", match: :first)
+    # click_link "Living room"
 
     expect(page).to have_link("TILLFÄLLE")
     expect(page).to have_link("ALÄNG")
