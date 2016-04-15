@@ -14,6 +14,16 @@
     <% @reviews.each_with_index do |review, index| %>
       <li id="review-<%= index %>">
         Rating: <%= review.rating %>
+        <% if review.user == current_user %>
+        <div class = "divider"/>
+          <%= button_to "Edit", edit_item_review_path(@item, review),
+           class: "button", method: :get %>
+        </div>
+          <div class = "divider"/>
+            <%= button_to "Delete", item_review_path(@item, review),
+            method: :delete %>
+          </div>
+        <% end %>
         <ul>
           <li>Description: <%= review.description %></li>
           <li class="review-rating" id="review-rating-<%= review.id %>">🔑 : <%= review.net_rating %></li>
@@ -31,8 +41,7 @@
             %>
           </li>
         </ul>
-      </li>
-    <% end %>
+      <% end %>
   </ul>
 <% end %>
 
@@ -40,14 +49,17 @@
   <%= paginate @reviews %>
 </p>
 
-<h4>We'd love your review of the <%= @item.title %>!</h4>
+<% unless current_user.nil? || user_reviewed? %>
+  <h4>We'd love your review of the <%= @item.title %>!</h4>
 
-<%= form_for [@item, @review] do |f| %>
-  <%= f.label :rating, "Rating:" %>
-  <%= f.select :rating, options_for_select(@rating_options) %>
+  <%= form_for [@item, @review] do |f| %>
+    <%= f.label :rating, "Rating:" %>
+    <%= f.select :rating, options_for_select(@rating_options) %>
 
-  <%= f.label :description, "Your Review:" %>
-  <%= f.text_area :description %>
+    <%= f.label :description, "Your Review:" %>
+    <%= f.text_area :description %>
 
-  <%= f.submit "Submit" %>
+    <%= f.submit "Submit" %>
+  <% end %>
 <% end %>
+</script>

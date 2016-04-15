@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:show]
   resources :items, only: [:new, :create, :index, :show] do
-    resources :reviews, only: [:create, :index, :update, :delete]
+    resources :reviews, only: [:create, :update, :edit, :destroy]
   end
   resources :admins, only: [:index]
   namespace :admins do
