@@ -7,24 +7,18 @@ feature "delete", %{
 } do
 
   let!(:user) do
-    User.create(
+    create(
+      :user,
       email: "asdf@asdf.com",
       password: "asdf1234"
     )
   end
 
-  let!(:item) do
-    Item.create(
-      item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
-      title: "HEMNES",
-      subtitle: "Coffee table, black-brown",
-      picture_url: "http://www.ikea.com/us/en/images/products/hemnes-coffee-table-brown__0104030_PE250678_S4.JPG",
-      price: "139.00"
-    )
-  end
+  let!(:item) { create(:item_2) }
 
   let!(:review) do
-    Review.create(
+    create(
+      :review,
       item: item,
       user: user,
       rating: 5,
