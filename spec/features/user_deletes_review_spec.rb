@@ -15,7 +15,7 @@ feature "User deletes a review" do
     )
   end
 
-  let!(:item) do
+  let!(:item1) do
     Item.create(
       item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
       title: "HEMNES",
@@ -29,11 +29,11 @@ feature "User deletes a review" do
     Review.create(
       rating: 5,
       description: "Best I ever had.",
-      item: item,
+      item: item1,
       user: user
     )
   end
-
+  
   before(:each) do
     visit new_user_session_path
   end
@@ -44,10 +44,12 @@ feature "User deletes a review" do
     click_button "Log in"
 
     visit item_path(item.id)
-    expect(page).to have_content "5 - Best I ever had."
+    expect(page).to have_content "Rating: 5 - Best I ever had."
+    expect(page).to have_content "Description: Best I ever had."
 
     click_button('Delete', match: :first)
-    expect(page).to_not have_content "5 - Best I ever had."
+    expect(page).to_not have_content "Rating: 5"
+    expect(page).to_not have_content "Description: Best I ever had."
   end
 
   scenario "User can only delete his/her own review" do
