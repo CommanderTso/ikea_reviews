@@ -1,3 +1,5 @@
+require 'csv'
+
 category = Category.find_or_create_by(name: "Living room")
 
 item_1 = Item.find_by(item_url: "http://www.ikea.com/us/en/catalog/products/80176284/")
@@ -49,4 +51,29 @@ end
   Review.find_or_create_by(rating: 2, description: "Nah", item: item_2, user: user_1)
   Review.find_or_create_by(rating: 1, description: "Awful", item: item_2, user: user_1)
   Review.find_or_create_by(rating: 5, description: "Cool", item: item_2, user: user_1)
+end
+
+("U".."Z").to_a.each do |letter|
+  array_of_products = CSV.read("db/data/#{letter}.csv")
+  array_of_products.each do |row|
+    item = Item.new
+
+    item.item_url = row[0],
+    item.title = row[1],
+    item.subtitle = row[2],
+    item.picture_url = row[3],
+    item.price = row[4],
+    item.article_number = row[6]
+
+    if row[5] == "" then row[5] = "Unknown" end
+    item.category = Category.find_or_create_by(name: row[5])
+
+    # if item.title == "VÄRDESÄTTA" then binding.pry end
+
+    if item.save
+      puts "Seeded #{item.title} to DB from CSV"
+    else
+      puts "Skipped #{item.title}"
+    end
+  end
 end

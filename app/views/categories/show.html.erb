@@ -1,8 +1,22 @@
 <br>
 <h2 id="greeting">Category Page for <%= @category.name %></h2>
 
-<ul>
-  <% @items.each do |item| %>
-    <li><%= link_to item.title, item_path(item.id) %></li>
-  <% end %>
-</ul>
+<table class="hover">
+  <thead>
+    <tr>
+      <th width="150">Ikea Item</th>
+      <th width="200">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @items.each do |item| %>
+      <tr>
+      <td><%= link_to item.title, item_path(item) %></td>
+      <td><%= item.subtitle %></td>
+    </tr>
+      <% end %>
+  </tbody>
+</table>
+<p>
+  <%= paginate @items %>
+</p>
