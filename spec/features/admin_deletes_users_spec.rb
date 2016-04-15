@@ -1,34 +1,24 @@
 require 'rails_helper'
 
 feature "admin deletes user" do
-
+  let!(:item) { create(:item_2) }
   let!(:admin) do
-    User.create(
+    create(
+      :admin,
       email: "pinkpinksopink@gmail.com",
       password: "123123123",
-      role: "admin"
-    )
+      role: "admin")
   end
-
   let!(:user) do
-    User.create(
+    create(
+      :user,
       email: "asdf@gmail.com",
       password: "123123123"
     )
   end
-
-  let!(:item) do
-    Item.create(
-      item_url: "http://www.ikea.com/us/en/catalog/products/80176284/",
-      title: "HEMNES",
-      subtitle: "Coffee table, black-brown",
-      picture_url: "http://www.ikea.com/us/en/images/products/hemnes-coffee-table-brown__0104030_PE250678_S4.JPG",
-      price: "139.00"
-    )
-  end
-
   let!(:review) do
-    Review.create(
+    create(
+      :review,
       item: item,
       user: user,
       rating: 5,
