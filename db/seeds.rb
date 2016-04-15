@@ -53,7 +53,7 @@ end
   Review.find_or_create_by(rating: 5, description: "Cool", item: item_2, user: user_1)
 end
 
-("U".."Z").to_a.each do |letter|
+("A".."Z").to_a.each do |letter|
   array_of_products = CSV.read("db/data/#{letter}.csv")
   array_of_products.each do |row|
     item = Item.new
@@ -72,6 +72,7 @@ end
 
     if item.save
       puts "Seeded #{item.title} to DB from CSV"
+      sleep 1
     else
       puts "Skipped #{item.title}"
     end
