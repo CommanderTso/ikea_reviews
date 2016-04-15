@@ -21,6 +21,23 @@ In order to get Eyekea running:
 
 The seeds file has around 2500 product entries; be aware that this will crash out if run at full speed on a free Heroku server.  The seeds file has a `sleep 1` that will keep it from overheating.
 
+Key Features
+=
+* Users can add products to the site by inputting an Ikea URL.  The product is scraped from the Ikea site and added automatically.
+* The Devise gem was implemented to handle user and admin privileges
+* Upvoting and downvoting uses AJAX to refresh without a page reload
+* Profile pictures via the CarrierWave gem and an S3 bucket
+
+Feature Wishlist
+=
+Here are some of the things we would have loved to put in, if we'd had the time:
+* Better unit and feature test coverage
+* Integrate sending emails automatically based on user behavior
+* Further linkage to the Ikea site - more product info, link back to them to purchase items, etc.
+* Integration of an API like Twitter
+* Make the site mobile friendly & put more time in on the styling
+* More robust search functionality
+
 
 Team Members
 =
