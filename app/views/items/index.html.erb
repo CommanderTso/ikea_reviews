@@ -13,7 +13,6 @@
 
     &#x1F436; &#128065; &#128273; &#128576; <br>
 
-
     <ul>
       <% @items.each do |item| %>
         <li><%= link_to item.title, item_path(item) %></li>
@@ -26,6 +25,13 @@
 
     <p>
       <%= paginate @items %>
+    </p>
+
+    <p>
+      <h3>View by Category:</h3>
+      <% @categories.each do |category| %>
+        <li><%= link_to category.name, category_path(category.id) %></li>
+      <% end %>
     </p>
   </body>
 </html>

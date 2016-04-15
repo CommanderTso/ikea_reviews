@@ -13,17 +13,12 @@ gem 'fog'
 gem "fog-aws"
 gem 'carrierwave'
 gem 'squeel'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
+gem 'rake'
 gem 'foundation-rails'
 gem 'dotenv-rails'
 gem 'nokogiri'
 gem 'kaminari'
+gem 'vcr'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -47,7 +42,8 @@ end
 group :test do
   gem 'coveralls', require: false
   gem 'webmock'
-  gem 'vcr'
+  gem 'database_cleaner'
+  gem 'poltergeist'
 end
 
 group :production do
