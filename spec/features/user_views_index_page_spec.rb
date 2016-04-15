@@ -79,7 +79,7 @@ feature "User views index page to see items" do
     expect(page).to have_content item1.title
     expect(page).to have_content item1.subtitle
     # binding.pry
-    expect(page).to have_xpath("/html/body/div/img[@src='#{item1.picture_url}']")
+    expect(page).to have_xpath("//img[@src='#{item1.picture_url}']")
   end
 
   scenario "Clicking Add Item takes you the user to the add item page" do

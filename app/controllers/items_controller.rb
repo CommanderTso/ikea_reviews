@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authorize_user, except: [:index, :show]
+  helper_method :user_reviewed?
 
   def index
     if !params.has_key?(:search)
@@ -40,8 +41,8 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @reviews = @item.reviews.order(created_at: :desc).page(params[:page])
     @review = Review.new
+    @reviews = @item.reviews.order(created_at: :desc).page(params[:page])
     @rating_options = Review::RATING_OPTIONS
 
     @headline = set_show_headline(@item, @reviews.count)
@@ -52,6 +53,17 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def user_reviewed?
+    @reviews = @item.reviews.order(created_at: :desc).page(params[:page])
+    @users_who_reviewed = []
+
+    @reviews.each do |review|
+      @users_who_reviewed << review.user
+    end
+
+    @users_who_reviewed.include?(current_user)
+  end
 
   def set_show_headline(item, review_count)
     headline = "Reviews"
@@ -104,7 +116,7 @@ class ItemsController < ApplicationController
 
   def authorize_user
     if !user_signed_in?
-      flash[:notice] = "Please sign in first"
+      flash[:notice] = "Please sign up to add a new item!"
       redirect_to new_user_registration_path
     end
   end

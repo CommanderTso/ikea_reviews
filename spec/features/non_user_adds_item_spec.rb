@@ -6,7 +6,7 @@ feature "Non-user visits the website" do
     click_link "Add an Item"
 
     expect(page.current_path).to eq new_user_registration_path
-    expect(page).to have_content "Please sign in first"
+    expect(page).to have_content "Please sign up to add a new item!"
     expect(page).to have_content "Sign up"
     expect(page).to have_content "Email"
   end
