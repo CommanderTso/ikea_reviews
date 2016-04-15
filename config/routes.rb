@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users,
-    :controllers => { :registrations => "devise/custom/registrations" }
+    :controllers => { registrations: "devise/custom/registrations" }
   root "items#index"
   resources :items, only: [:new, :create, :index, :show] do
     resources :reviews, only: [:create, :index, :update, :delete]
