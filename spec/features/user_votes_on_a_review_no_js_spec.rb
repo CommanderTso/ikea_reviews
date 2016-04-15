@@ -28,50 +28,50 @@ feature "User votes on a review (no ajax)" do
   scenario "User upvotes a review" do
     expect(page).to have_content "We'd love your review of the"
 
-    expect(page).to have_content("Review rating: 0")
+    expect(page).to have_content("🔑 : 0")
     first(".upvote-0").click
 
-    expect(page).to have_content("Review rating: 1")
+    expect(page).to have_content("🔑 : 1")
   end
 
   scenario "User downvotes a review" do
-    expect(page).to have_content("Review rating: 0")
+    expect(page).to have_content("🔑 : 0")
 
     first(".downvote-0").click
 
-    expect(page).to have_content("Review rating: -1")
+    expect(page).to have_content("🔑 : -1")
   end
 
   scenario "User removes their upvote" do
     first(".upvote-0").click
-    expect(page).to have_content("Review rating: 1")
+    expect(page).to have_content("🔑 : 1")
 
     first(".upvote-0").click
-    expect(page).to have_content("Review rating: 0")
+    expect(page).to have_content("🔑 : 0")
   end
 
   scenario "User removes their downvote" do
     first(".downvote-0").click
-    expect(page).to have_content("Review rating: -1")
+    expect(page).to have_content("🔑 : -1")
 
     first(".downvote-0").click
-    expect(page).to have_content("Review rating: 0")
+    expect(page).to have_content("🔑 : 0")
   end
 
   scenario "User changes their downvote to an upvote" do
     first(".downvote-0").click
-    expect(page).to have_content("Review rating: -1")
+    expect(page).to have_content("🔑 : -1")
 
     first(".upvote-0").click
-    expect(page).to have_content("Review rating: 1")
+    expect(page).to have_content("🔑 : 1")
 
   end
 
   scenario "User changes their upvote to an downvote" do
     first(".upvote-0").click
-    expect(page).to have_content("Review rating: 1")
+    expect(page).to have_content("🔑 : 1")
 
     first(".downvote-0").click
-    expect(page).to have_content("Review rating: -1")
+    expect(page).to have_content("🔑 : -1")
   end
 end
