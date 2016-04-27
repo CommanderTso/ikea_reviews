@@ -1,5 +1,5 @@
 README
-==
+=
 
 ![Build Status](https://codeship.com/projects/1bf10340-dcbb-0133-b80a-760a1f8f56cd/status?branch=master)
 ![Code Climate](https://codeclimate.com/github/CommanderTso/ikea_reviews.png)
@@ -10,7 +10,7 @@ Eyekea
 
 This was a team project for Launch Academy's Sprint 2016 cohort.
 
-Eyekea is a site we created in two weeks to hold reviews of Ikea items  Via web scraping, we pulled in links to most of Ikea's inventory - users can then create reviews on the items, as well as up and downvote the reviews they like.  
+Eyekea is a site we created in two weeks to hold reviews of Ikea items. Via web scraping, we pre-populated our databae with most of Ikea's inventory. Users can create reviews of the items, as well as up and downvote the reviews they like.  If they find an item we didn't pull in, the site can pull in the data just by inputting the item's Ikea.com URL.
 
 Deploying Eyekea
 =
@@ -20,7 +20,7 @@ In order to get Eyekea running:
 * `rake db:setup`
 * `rails s`
 
-The seeds file has around 2500 product entries; be aware that this will crash out if run at full speed on a free Heroku server.  The seeds file has a `sleep 1` that will keep it from overheating.
+The seeds file has around 2500 product entries; be aware that this will crash out if run at full speed on a free-level Heroku server.  The seeds file has a `sleep 1` that will keep it from overheating.
 
 Key Features
 =
